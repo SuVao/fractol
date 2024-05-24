@@ -25,7 +25,7 @@ void	handle_pixel(int x, int y, t_fractal *fractal)
 	while (i < fractal->iters)
 	{
 		z = sum_complex(square_complex(z), c);
-		if ((z.real * z.i) + (z.i * z.i) > fractal->escaped)
+		if ((z.real * z.real) + (z.i * z.i) > fractal->escaped)
 		{
 			color = cool_map(i, BLACK, WHITE, fractal->iters);
 			my_pixel_put(&fractal->img ,x, y, color);
@@ -33,7 +33,7 @@ void	handle_pixel(int x, int y, t_fractal *fractal)
 		}
 		i++;
 	}
-	my_pixel_put(&fractal->img, x, y,  COR_ROXA);
+	my_pixel_put(&fractal->img, x, y, COR_ROXA);
 }
 
 void	fractal_render(t_fractal *fractal)

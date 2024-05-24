@@ -6,7 +6,7 @@ void	dat_init(t_fractal *fractal)
 	fractal->iters = 42;
 }
 
-void fractal_init(t_fractal *fractal)
+void	fractal_init(t_fractal *fractal)
 {
 	fractal->mlx_connetion = mlx_init();
 	if (fractal->mlx_connetion == NULL)
@@ -30,7 +30,7 @@ void fractal_init(t_fractal *fractal)
 		free(fractal->mlx_connetion);
 		malloc_error();
 	}
-	fractal->img.img = mlx_get_data_addr(fractal->img.img,
+	fractal->img.pixels_ptr = mlx_get_data_addr(fractal->img.img,
 										&fractal->img.bits_per_pixel,
 										&fractal->img.line_length,
 										&fractal->img.endian);
