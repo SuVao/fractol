@@ -6,7 +6,7 @@
 #    By: pesilva- <pesilva-@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/22 14:09:36 by pesilva-          #+#    #+#              #
-#    Updated: 2024/05/22 17:09:49 by pesilva-         ###   ########.fr        #
+#    Updated: 2024/05/24 14:31:42 by pesilva-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,8 @@ SRC = SRC
 MINILIBX_DIR = ./mlx_linux
 MAIN_SRC = main.c
 SRC_FILES = main.c
+			string_utils.C
+			ft_error.c
 
 CC= cc
 CFLAGS = -Wall -Werror -Wextra -fast
