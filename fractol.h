@@ -6,7 +6,7 @@
 /*   By: pesilva- <pesilva-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:58:00 by pesilva-          #+#    #+#             */
-/*   Updated: 2024/05/24 17:13:07 by pesilva-         ###   ########.fr       */
+/*   Updated: 2024/05/25 15:34:30 by pesilva-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 #include <stdio.h>
 #include "minilibx-linux/mlx.h"
 #include <fcntl.h>
+#include <X11/X.h>
+#include <X11/keysym.h>
+#include <math.h>
 
 typedef struct	s_complex
 {
@@ -43,6 +46,8 @@ typedef struct s_fractal
 	char	*name;
 	double	escaped;
 	int		iters;
+	double	shift_x;
+	double	shift_y;
 }				t_fractal;
 
 # define HEIGHT 800
@@ -53,6 +58,31 @@ typedef struct s_fractal
 # define XMIN 0.0
 # define YMIN 0.0
 
+/*---------------KEYS---------------*/
+
+# define ESC 65307
+# define UP 65362
+# define DOWN 65364
+# define LEFT 65361
+# define RIGHT 65363
+# define NUMPLUS 65451
+# define NUMMINUS 65453
+# define NUMDOT 65439
+# define DOT 46
+# define MINUS 45
+# define PLUS 61
+# define IT 105
+# define SPC 32
+# define W_K 119
+# define A_K 97
+# define S_K 115
+# define D_K 100
+# define SHIFT 65505
+# define R 114
+# define G 103
+# define B 98
+
+/*--------------CORES----------------*/
 # define BLACK 0x000000
 # define WHITE 0xFFFFFF
 # define COR_ROXA 0x800080
@@ -79,5 +109,7 @@ void		fractal_render(t_fractal *fractal);
 void		dat_init(t_fractal *fractal);
 void		my_pixel_put(t_data *img, int x, int y, int color);
 void		handle_pixel(int x, int y, t_fractal *fractal);
+int			key_handler(int keysym, t_fractal *fractal);
+int			ft_destroy(t_fractal *fractal);
 
 #endif

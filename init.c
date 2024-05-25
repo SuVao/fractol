@@ -4,6 +4,24 @@ void	dat_init(t_fractal *fractal)
 {
 	fractal->escaped = 4;
 	fractal->iters = 42;
+	fractal->shift_x = 0.0;
+	fractal->shift_y = 0.0;
+}
+
+void	events_init(t_fractal *fractal)
+{
+	mlx_hook(fractal->mlx_window, KeyPress,
+							 KeyPressMask,
+							 key_handler,
+							 fractal);
+/* 	mlx_hook(fractal->mlx_window, BottonPress,
+							 BottonPressMask,
+							 rato_handler,
+							 fractal);*/
+	mlx_hook(fractal->mlx_window, DestroyNotify,
+							 StructureNotifyMask,
+							 ft_destroy,
+							 fractal);
 }
 
 void	fractal_init(t_fractal *fractal)
@@ -34,5 +52,6 @@ void	fractal_init(t_fractal *fractal)
 										&fractal->img.bits_per_pixel,
 										&fractal->img.line_length,
 										&fractal->img.endian);
+	events_init(fractal);
 	dat_init(fractal);
 }
