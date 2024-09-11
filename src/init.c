@@ -1,4 +1,4 @@
-#include "fractol.h"
+#include "../fractol.h"
 
 void	dat_init(t_fractal *fractal)
 {
@@ -6,6 +6,9 @@ void	dat_init(t_fractal *fractal)
 	fractal->iters = 42;
 	fractal->shift_x = 0.0;
 	fractal->shift_y = 0.0;
+/* 	fractal->ori_x = 0.0;
+	fractal->ori_y = 0.0;
+	fractal->zoom = 0.0; */
 }
 
 void	events_init(t_fractal *fractal)
@@ -14,6 +17,7 @@ void	events_init(t_fractal *fractal)
 							 KeyPressMask,
 							 key_handler,
 							 fractal);
+	/* mlx_mouse_hook(fractal->mlx_window, zooming, fractal); */
 /* 	mlx_hook(fractal->mlx_window, BottonPress,
 							 BottonPressMask,
 							 rato_handler,

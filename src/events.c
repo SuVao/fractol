@@ -6,14 +6,11 @@
 /*   By: pesilva- <pesilva-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 12:49:36 by pesilva-          #+#    #+#             */
-/*   Updated: 2024/05/25 17:05:56 by pesilva-         ###   ########.fr       */
+/*   Updated: 2024/09/11 17:25:40 by pesilva-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
-
-/* static void	keyleft()
- */
+#include "../fractol.h"
 
 int	key_handler(int keysym, t_fractal *fractal)
 {

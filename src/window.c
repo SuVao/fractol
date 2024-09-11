@@ -1,27 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_error.c                                         :+:      :+:    :+:   */
+/*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pesilva- <pesilva-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/24 13:04:50 by pesilva-          #+#    #+#             */
-/*   Updated: 2024/05/24 15:14:16 by pesilva-         ###   ########.fr       */
+/*   Created: 2024/05/25 14:06:58 by pesilva-          #+#    #+#             */
+/*   Updated: 2024/09/02 18:37:08 by pesilva-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "../fractol.h"
 
-void	ft_error(void)
+int	ft_destroy(t_fractal *fractal)
 {
-	printf("./fractol <fractal set>\n");
-	printf("Mandelbrot -> ./fractol Mandelbrot\n");
-	printf("Julia -> ./fractol Julia <float 1> <float 2>\n");
-	printf("Phoenix -> ./fractol Phoenix <float 1> <float 2> <float 3>\n");
-}
-
-void	malloc_error(void)
-{
-	perror("Problems with malloc");
-	exit(EXIT_FAILURE);
+	mlx_destroy_image(fractal->mlx_connetion, fractal->img.img);
+	mlx_destroy_window(fractal->mlx_connetion, fractal->mlx_window);
+	mlx_destroy_display(fractal->mlx_connetion);
+	free(fractal->mlx_connetion);
+	exit (EXIT_SUCCESS);
 }

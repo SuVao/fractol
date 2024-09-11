@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pesilva- <pesilva-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/22 16:58:00 by pesilva-          #+#    #+#             */
-/*   Updated: 2024/05/25 15:34:30 by pesilva-         ###   ########.fr       */
+/*   Created: 2024/09/09 15:21:03 by pesilva-          #+#    #+#             */
+/*   Updated: 2024/09/11 18:56:23 by pesilva-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ typedef struct s_fractal
 # define R 114
 # define G 103
 # define B 98
+# define SCROLL_UP 4
+# define SCROLL_DOWN 5
 
 /*--------------CORES----------------*/
 # define BLACK 0x000000
@@ -95,7 +97,7 @@ typedef struct s_fractal
 # define COR_CIANO_PSICODELICO 0x00FFEE
 # define COR_VERDE_NEON 0x39FF14
 # define COR_VERMELHO_FLUORESCENTE 0xFF2400
-
+# define STEEL_BLUE 0x4682B4
 
 void		ft_error(void);
 int			ft_strncmp(const char *s1, const char *s2, size_t nb);
@@ -111,5 +113,7 @@ void		my_pixel_put(t_data *img, int x, int y, int color);
 void		handle_pixel(int x, int y, t_fractal *fractal);
 int			key_handler(int keysym, t_fractal *fractal);
 int			ft_destroy(t_fractal *fractal);
+double		clamp(double x, double min_val, double max_val);
+
 
 #endif

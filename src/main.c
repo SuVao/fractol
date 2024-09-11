@@ -1,4 +1,4 @@
-#include "fractol.h"
+#include "../fractol.h"
 
 /* void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
@@ -47,7 +47,7 @@ int main(int ac, char **av)
 		fractal_render(&fractal);
 		mlx_loop(fractal.mlx_connetion);
 	}
-	else if (4 == ac && !ft_strncmp(av[1], "julia", 5))
+	/* else if (4 == ac && !ft_strncmp(av[1], "julia", 5))
 	{
 		fractal.name = av[1];
 		fractal_init(&fractal);
@@ -60,7 +60,7 @@ int main(int ac, char **av)
 		fractal_init(&fractal);
 		fractal_render(&fractal);
 		mlx_loop(fractal.mlx_connetion);
-	}
+	} */
 	else
 	{
 		ft_error();

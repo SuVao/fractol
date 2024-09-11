@@ -1,38 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   complex_plane.c                                    :+:      :+:    :+:   */
+/*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pesilva- <pesilva-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/23 16:30:43 by pesilva-          #+#    #+#             */
-/*   Updated: 2024/05/24 14:25:23 by pesilva-         ###   ########.fr       */
+/*   Created: 2024/05/24 13:04:50 by pesilva-          #+#    #+#             */
+/*   Updated: 2024/09/02 18:36:44 by pesilva-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "../fractol.h"
 
-/* int main()
+void	ft_error(void)
 {
-	t_complex	z;
-	t_complex	c;
-	double		tmp_real;
-	z.real = 0;
-	z.i = 0;
+	printf("./fractol <fractal set>\n");
+	printf("Mandelbrot -> ./fractol Mandelbrot\n");
+	printf("Julia -> ./fractol Julia <float 1> <float 2>\n");
+	printf("Phoenix -> ./fractol Phoenix <float 1> <float 2> <float 3>\n");
+}
 
-	c.real = 0.25;
-	c.i = 0.4;
-
-	for (int i = 0; i < 42; ++i)
-	{
-		tmp_real = (z.real * z.real) - (z.i * z.i);
-		z.i = 2 * z.real * z.i;
-		z.real = tmp_real;
-		
-		z.real += c.real;
-		z.i += c.i;
-
-		printf("iiteracoes: n-> %d real:%f imaginario:%f \n", i, z.real, z.i);
-	}
-	return (0);
-} */
+void	malloc_error(void)
+{
+	perror("Problems with malloc");
+	exit(EXIT_FAILURE);
+}

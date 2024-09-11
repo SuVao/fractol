@@ -6,41 +6,49 @@
 #    By: pesilva- <pesilva-@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/22 14:09:36 by pesilva-          #+#    #+#              #
-#    Updated: 2024/05/24 14:31:42 by pesilva-         ###   ########.fr        #
+#    Updated: 2024/09/11 17:04:36 by pesilva-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = fractol.a
+NAME = fractol
 
-OBJS = OBJ
-SRC = SRC
-MINILIBX_DIR = ./mlx_linux
-MAIN_SRC = main.c
-SRC_FILES = main.c
-			string_utils.C
-			ft_error.c
+SRC_DIR = ./src
+OBJ_DIR = ./obj
+MINILIBX_DIR = ./minilibx-linux
+CC = cc
+CFLAGS = -Wall -Werror -Wextra -O3 -g
 
-CC= cc
-CFLAGS = -Wall -Werror -Wextra -fast
+SRC_FILES = main.c \
+			init.c \
+			ft_error.c \
+			math_utils.c \
+			render.c \
+			string_utils.c \
+			window.c \
+			events.c
 
-all : $(NAME)
+SRCS = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
+OBJS = $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))
 
-$(NAME): $(OBJ_DIR) $(OBJ)
-		$(MAKE) -C $(MINILIBX_DIR)
-		@ar -crs $(NAME) $(OBJ)
+$(NAME): $(OBJ_DIR) $(OBJS)
+	$(MAKE) -C $(MINILIBX_DIR)
+	$(CC) $(CFLAGS) $(OBJS) -I./mlx_linux/ -o $(NAME) -L$(MINILIBX_DIR) -lmlx -lXext -lX11 -lm
 
-		@$(CC) $(CFLAGS) -I./mlx_linux/ -o $(PROGRAM) $(MAIN_SRC) $(NAME) -lmlx -lXext -lX11 -lm -lz
+$(OBJ_DIR):
+	mkdir -p $(OBJ_DIR)
 
-%.o: %.c
-	$(CC) -Wall -Wextra -Werror -I/usr/include -Imlx_linux -O3 -c $< -o $@
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	$(CC) $(CFLAGS) -I/usr/include -Imlx_linux -O3 -c $< -o $@
+
+all: $(NAME)
 
 clean:
-	@rm -rf $(OBJ_DIR)
+	rm -rf $(OBJ_DIR)
 
 fclean: clean
-	$(MAKE) clean -C $(MINILIBX_DIR)
-	@rm -f $(NAME) $(PROGRAM)
+	clean -C $(MINILIBX_DIR)
+	rm -f $(NAME)
 
 re: fclean all
 
-.PHONY: all clean fclean re program val show
+.PHONY: all clean fclean re

@@ -6,11 +6,11 @@
 /*   By: pesilva- <pesilva-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 15:58:58 by pesilva-          #+#    #+#             */
-/*   Updated: 2024/05/24 17:04:22 by pesilva-         ###   ########.fr       */
+/*   Updated: 2024/09/02 18:36:52 by pesilva-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "../fractol.h"
 
 double	cool_map(double unscaled_num, double new_min, double new_max,
 				double old_max)
