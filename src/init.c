@@ -22,6 +22,7 @@ void	events_init(t_fractal *fractal)
 							 BottonPressMask,
 							 rato_handler,
 							 fractal);*/
+	mlx_mouse_hook(fractal->mlx_window, mouse_events, NULL);
 	mlx_hook(fractal->mlx_window, DestroyNotify,
 							 StructureNotifyMask,
 							 ft_destroy,

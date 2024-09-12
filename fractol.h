@@ -6,7 +6,7 @@
 /*   By: pesilva- <pesilva-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:21:03 by pesilva-          #+#    #+#             */
-/*   Updated: 2024/09/11 18:56:23 by pesilva-         ###   ########.fr       */
+/*   Updated: 2024/09/11 22:53:53 by pesilva-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,6 @@ void		handle_pixel(int x, int y, t_fractal *fractal);
 int			key_handler(int keysym, t_fractal *fractal);
 int			ft_destroy(t_fractal *fractal);
 double		clamp(double x, double min_val, double max_val);
-
+int	mouse_events(int key, t_fractal *fractal);
 
 #endif
