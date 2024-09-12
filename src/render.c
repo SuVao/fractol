@@ -25,6 +25,7 @@ void	my_pixel_put(t_data *img, int x, int y, int color)
 double smoothstep(double edge0, double edge1, double x)
 {
 	x = clamp((x - edge0) / (edge1 - edge0), 0.0, 1.0);
+
 	return (x * x * (3 - 2 * x));
 }
 
@@ -38,61 +39,15 @@ double clamp(double x, double min_val, double max_val)
 		return x;
 }
 
-/* void	handle_pixel(int x, int y, t_fractal *fractal)
-{
-	t_complex	z;
-	t_complex	c;
-	int			i;
-	int			color;
-	double		c2;
-	double		smooth_i;
-	double		smoothed_color;
-
-	i = 0;
-	z.real = 0.0;
-	z.i = 0.0;
-	c.real = cool_map(x, -2, +2, WIDTH) + fractal->shift_x;
-	c.i = cool_map(y, +2, -2, HEIGHT) + fractal->shift_y;
-	c2 = (c.real * c.real) + (c.i * c.i);
-	smooth_i = 0.0;
-	if (256.0 * c2 * c2 - 96.0 * c2 + 32.0 * c.real - 3.0 < 0.0)
-	{
-		my_pixel_put(&fractal->img, x, y, BLACK);
-		return;
-	}
-	if (16.0 * (c2 + 2.0 * c.real + 1.0) - 1.0 < 0.0)
-	{
-		my_pixel_put(&fractal->img, x, y, BLACK);
-		return;
-	}
-	printf("c.real: %lf \\ c.i: %lf \n", c.real, c.i);
-	printf("z.real: %lf \\ z.i: %lf \n", z.real, z.i);
-	while (i < fractal->iters)
-	{
-		z = sum_complex(square_complex(z), c);
-		if ((z.real * z.real) + (z.i * z.i) > fractal->escaped)
-		{
-			smooth_i = smooth_iteration(i, z);
-			smoothed_color = smoothstep(0.0, 1.0, smooth_i / fractal->iters);
-			printf("smooth_i: %lf, smoothed_color: %lf, i: %d\n", smooth_i, smoothed_color, i);
-			color = cool_map(smoothed_color, BLACK, WHITE, fractal->iters);
-			my_pixel_put(&fractal->img ,x, y, color);
-			return ;
-		}
-		i++;
-	}
-	my_pixel_put(&fractal->img, x, y, BLACK);
-} */
-
 int interpolate_color(double t, int color1, int color2)
 {
-	int r1 = (color1 >> 16) & 0xF0;
-	int g1 = (color1 >> 8) & 0xF0;
-	int b1 = color1 & 0xF0;
+	int r1 = (color1 >> 16) & 0xFF;
+	int g1 = (color1 >> 8) & 0xFF;
+	int b1 = color1 & 0xFF;
 
-	int r2 = (color2 >> 16) & 0xF0;
-	int g2 = (color2 >> 8) & 0xF0;
-	int b2 = color2 & 0xF0;
+	int r2 = (color2 >> 16) & 0xFF;
+	int g2 = (color2 >> 8) & 0xFF;
+	int b2 = color2 & 0xFF;
 
 	int r = (int)((1 - t) * r1 + t * r2);
 	int g = (int)((1 - t) * g1 + t * g2);
@@ -116,6 +71,9 @@ void handle_pixel(int x, int y, t_fractal *fractal)
 	z.i = 0.0;
 	c.real = cool_map(x, -2, +2, WIDTH) + fractal->shift_x;
 	c.i = cool_map(y, +2, -2, HEIGHT) + fractal->shift_y;
+	fractal->ori_x = c.real;
+	fractal->ori_y = c.i;
+	/* printf("x: %f, y: %f\n", fractal->ori_x, fractal->ori_y); */
 	c2 = (c.real * c.real) + (c.i * c.i);
 
 	if (256.0 * c2 * c2 - 96.0 * c2 + 32.0 * c.real - 3.0 < 0.0 ||

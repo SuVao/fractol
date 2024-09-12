@@ -6,7 +6,7 @@
 #    By: pesilva- <pesilva-@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/22 14:09:36 by pesilva-          #+#    #+#              #
-#    Updated: 2024/09/11 17:04:36 by pesilva-         ###   ########.fr        #
+#    Updated: 2024/09/12 17:23:02 by pesilva-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ SRC_DIR = ./src
 OBJ_DIR = ./obj
 MINILIBX_DIR = ./minilibx-linux
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -O3 -g
+CFLAGS = -Wall -Werror -Wextra -O3 -g #-fsanitize=address
 
 SRC_FILES = main.c \
 			init.c \

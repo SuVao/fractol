@@ -2,13 +2,16 @@
 
 void	dat_init(t_fractal *fractal)
 {
+	if (!fractal)
+		return ;
+	
 	fractal->escaped = 4;
 	fractal->iters = 42;
 	fractal->shift_x = 0.0;
 	fractal->shift_y = 0.0;
 /* 	fractal->ori_x = 0.0;
-	fractal->ori_y = 0.0;
-	fractal->zoom = 0.0; */
+	fractal->ori_y = 0.0; */
+	fractal->zoom = 1.0; 
 }
 
 void	events_init(t_fractal *fractal)
@@ -22,7 +25,7 @@ void	events_init(t_fractal *fractal)
 							 BottonPressMask,
 							 rato_handler,
 							 fractal);*/
-	mlx_mouse_hook(fractal->mlx_window, mouse_events, NULL);
+	mlx_mouse_hook(fractal->mlx_window, &mouse_events, fractal);
 	mlx_hook(fractal->mlx_window, DestroyNotify,
 							 StructureNotifyMask,
 							 ft_destroy,

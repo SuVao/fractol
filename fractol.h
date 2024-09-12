@@ -6,7 +6,7 @@
 /*   By: pesilva- <pesilva-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:21:03 by pesilva-          #+#    #+#             */
-/*   Updated: 2024/09/11 22:53:53 by pesilva-         ###   ########.fr       */
+/*   Updated: 2024/09/12 17:36:11 by pesilva-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,16 @@ typedef struct s_fractal
 	int		iters;
 	double	shift_x;
 	double	shift_y;
+	double	ori_x;
+	double	ori_y;
+	double	zoom;
 }				t_fractal;
 
 # define HEIGHT 800
 # define WIDTH 800
 # define MAX_ITER 1
 # define KC 0.001
-# define SCALER 0.1
+# define SCALER 1.1
 # define XMIN 0.0
 # define YMIN 0.0
 
@@ -114,6 +117,7 @@ void		handle_pixel(int x, int y, t_fractal *fractal);
 int			key_handler(int keysym, t_fractal *fractal);
 int			ft_destroy(t_fractal *fractal);
 double		clamp(double x, double min_val, double max_val);
-int	mouse_events(int key, t_fractal *fractal);
+int			mouse_events(int key, int x, int y, t_fractal *fractal);
+double		cool_map2(int value, double min, double max, int dimension);
 
 #endif
