@@ -69,8 +69,8 @@ void handle_pixel(int x, int y, t_fractal *fractal)
 	i = 0;
 	z.real = 0.0;
 	z.i = 0.0;
-	c.real = cool_map(x, -2, +2, WIDTH) + fractal->shift_x;
-	c.i = cool_map(y, +2, -2, HEIGHT) + fractal->shift_y;
+	c.real = (cool_map(x, -2, +2, WIDTH) * fractal->zoom) + fractal->shift_x;
+	c.i = (cool_map(y, +2, -2, HEIGHT) * fractal->zoom)+ fractal->shift_y;
 	fractal->ori_x = c.real;
 	fractal->ori_y = c.i;
 	/* printf("x: %f, y: %f\n", fractal->ori_x, fractal->ori_y); */
@@ -89,7 +89,7 @@ void handle_pixel(int x, int y, t_fractal *fractal)
 		{
 			smooth_i = smooth_iteration(i, z);
 			smoothed_color = smoothstep(-0.5, 0.5, smooth_i / fractal->iters);
-			color = interpolate_color(smoothed_color, STEEL_BLUE, WHITE);
+			color = interpolate_color(smoothed_color, STEEL_BLUE, COR_MAGENTA_PSICODELICO);
 			my_pixel_put(&fractal->img, x, y, color);
 			return;
 		}
