@@ -89,7 +89,7 @@ void handle_pixel(int x, int y, t_fractal *fractal)
 		{
 			smooth_i = smooth_iteration(i, z);
 			smoothed_color = smoothstep(-0.5, 0.5, smooth_i / fractal->iters);
-			color = interpolate_color(smoothed_color, STEEL_BLUE, COR_MAGENTA_PSICODELICO);
+			color = interpolate_color(smoothed_color, BLACK, COR_MAGENTA_PSICODELICO);
 			my_pixel_put(&fractal->img, x, y, color);
 			return;
 		}

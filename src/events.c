@@ -6,7 +6,7 @@
 /*   By: pesilva- <pesilva-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 12:49:36 by pesilva-          #+#    #+#             */
-/*   Updated: 2024/09/13 18:22:56 by pesilva-         ###   ########.fr       */
+/*   Updated: 2024/09/13 19:22:40 by pesilva-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,10 @@ void	zoom(int key, t_fractal *fractal, int x, int y)
 	if (key == SCROLL_UP)
 	{
 		fractal->zoom *= 0.95;
-		x = (WIDTH / 2) * 0.1;
-		y = (HEIGHT / 2) * 0.1;
 		fractal_render(fractal);
 	}
 	else if (key == SCROLL_DOWN)
 	{
-		x = (WIDTH / 2) * 0.1;
-		y = (HEIGHT / 2) * 0.1;
 		fractal->zoom *= 1.05;
 		fractal_render(fractal);
 	}
