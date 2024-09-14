@@ -6,7 +6,7 @@
 /*   By: pesilva- <pesilva-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:21:03 by pesilva-          #+#    #+#             */
-/*   Updated: 2024/09/12 17:36:11 by pesilva-         ###   ########.fr       */
+/*   Updated: 2024/09/15 00:45:50 by pesilva-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,10 @@ typedef struct s_fractal
 	int		iters;
 	double	shift_x;
 	double	shift_y;
-	double	ori_x;
-	double	ori_y;
+	double	mouse_x;
+	double	mouse_y;
+	double	mouse_world_x;
+	double	mouse_world_y;
 	double	zoom;
 }				t_fractal;
 

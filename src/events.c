@@ -6,28 +6,31 @@
 /*   By: pesilva- <pesilva-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 12:49:36 by pesilva-          #+#    #+#             */
-/*   Updated: 2024/09/13 19:22:40 by pesilva-         ###   ########.fr       */
+/*   Updated: 2024/09/15 00:47:30 by pesilva-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fractol.h"
 
-void	zoom(int key, t_fractal *fractal, int x, int y)
+void zoom(int key, t_fractal *fractal, int x, int y)
 {
-	(void)x;
-	(void)y;
-	if (key == SCROLL_UP)
-	{
-		fractal->zoom *= 0.95;
-		fractal_render(fractal);
-	}
-	else if (key == SCROLL_DOWN)
-	{
-		fractal->zoom *= 1.05;
-		fractal_render(fractal);
-	}
-}
+    // Mapeia as coordenadas do rato para as coordenadas do mundo da fractal
+    fractal->mouse_world_x = (x - fractal->mouse_x) * fractal->zoom + fractal->shift_x;
+    fractal->mouse_world_y = (y - fractal->mouse_y) * fractal->zoom + fractal->shift_y;
 
+    // Aplica o zoom
+    if (key == SCROLL_UP)
+        fractal->zoom *= 0.95;  // Zoom in
+    else if (key == SCROLL_DOWN)
+        fractal->zoom *= 1.05;  // Zoom out
+
+    // Ajusta o deslocamento para manter o ponto do rato fixo após o zoom
+    fractal->shift_x = fractal->mouse_world_x - (x - fractal->mouse_x) * fractal->zoom;
+    fractal->shift_y = fractal->mouse_world_y - (y - fractal->mouse_y) * fractal->zoom;
+
+    // Renderiza a fractal com as novas coordenadas
+    fractal_render(fractal);
+}
 int	mouse_events(int key, int x, int y, t_fractal *fractal)
 {
 	int	tmp_x;
@@ -35,8 +38,8 @@ int	mouse_events(int key, int x, int y, t_fractal *fractal)
 	
 	if (!fractal)
 		return (0);
-	tmp_x = (x - (WIDTH / 2)) * 0.1;
-	tmp_y = (y - (HEIGHT / 2)) * 0.1;
+	tmp_x = (x - (fractal->mouse_x)) * 0.1;
+	tmp_y = (y - (fractal->mouse_y)) * 0.1;
 	if (key == SCROLL_UP)
 		zoom(key, fractal, tmp_x, tmp_y);
 	else if (key == SCROLL_DOWN)
