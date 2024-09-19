@@ -1,4 +1,4 @@
-#include "../fractol.h"
+#include "../inc/fractol.h"
 
 /* void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {

@@ -6,11 +6,11 @@
 /*   By: pesilva- <pesilva-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:04:50 by pesilva-          #+#    #+#             */
-/*   Updated: 2024/09/02 18:36:44 by pesilva-         ###   ########.fr       */
+/*   Updated: 2024/09/18 19:07:56 by pesilva-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../fractol.h"
+#include "../inc/fractol.h"
 
 void	ft_error(void)
 {

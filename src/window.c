@@ -6,11 +6,11 @@
 /*   By: pesilva- <pesilva-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 14:06:58 by pesilva-          #+#    #+#             */
-/*   Updated: 2024/09/02 18:37:08 by pesilva-         ###   ########.fr       */
+/*   Updated: 2024/09/18 20:30:36 by pesilva-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../fractol.h"
+#include "../inc/fractol.h"
 
 int	ft_destroy(t_fractal *fractal)
 {

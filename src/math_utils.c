@@ -6,16 +6,16 @@
 /*   By: pesilva- <pesilva-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 15:58:58 by pesilva-          #+#    #+#             */
-/*   Updated: 2024/09/12 15:06:40 by pesilva-         ###   ########.fr       */
+/*   Updated: 2024/09/18 20:30:15 by pesilva-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../fractol.h"
+#include "../inc/fractol.h"
 
 double	cool_map(double unscaled_num, double new_min, double new_max,
 				double old_max)
 {
-	return ((new_max - new_min) * (unscaled_num) / (old_max) + new_min);
+	return (((new_max - new_min) * (unscaled_num) / (old_max) + new_min));
 }
 double cool_map2(int value, double min, double max, int dimension)
 {

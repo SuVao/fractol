@@ -6,7 +6,7 @@
 /*   By: pesilva- <pesilva-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:21:03 by pesilva-          #+#    #+#             */
-/*   Updated: 2024/09/15 00:45:50 by pesilva-         ###   ########.fr       */
+/*   Updated: 2024/09/19 17:53:34 by pesilva-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include "minilibx-linux/mlx.h"
+#include "../minilibx-linux/mlx.h"
 #include <fcntl.h>
 #include <X11/X.h>
 #include <X11/keysym.h>
@@ -46,12 +46,12 @@ typedef struct s_fractal
 	char	*name;
 	double	escaped;
 	int		iters;
+	int		center_x;
+	int		center_y;
+	double	world_x;
+	double	world_y;
 	double	shift_x;
 	double	shift_y;
-	double	mouse_x;
-	double	mouse_y;
-	double	mouse_world_x;
-	double	mouse_world_y;
 	double	zoom;
 }				t_fractal;
 
@@ -103,6 +103,7 @@ typedef struct s_fractal
 # define COR_VERDE_NEON 0x39FF14
 # define COR_VERMELHO_FLUORESCENTE 0xFF2400
 # define STEEL_BLUE 0x4682B4
+# define CASTANHO 0X964B00
 
 void		ft_error(void);
 int			ft_strncmp(const char *s1, const char *s2, size_t nb);
@@ -121,5 +122,9 @@ int			ft_destroy(t_fractal *fractal);
 double		clamp(double x, double min_val, double max_val);
 int			mouse_events(int key, int x, int y, t_fractal *fractal);
 double		cool_map2(int value, double min, double max, int dimension);
+int			interpolate_color(double t, int color1, int color2);
+void		zoom_out(t_fractal *fractal, int x, int y, int key);
+double		map_x(int x, double min, double max, t_fractal *fractal);
+double		map_y(int x, double min, double max, t_fractal *fractal);
 
 #endif

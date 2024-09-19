@@ -1,4 +1,4 @@
-#include "../fractol.h"
+#include "../inc/fractol.h"
 
 void	dat_init(t_fractal *fractal)
 {
@@ -10,17 +10,10 @@ void	dat_init(t_fractal *fractal)
 	fractal->shift_x = 0.0;
 	fractal->shift_y = 0.0;
 	fractal->zoom = 1.0; 
-	fractal->mouse_x = 0.0;
-	fractal->mouse_y = 0.0;
-}
-
-int	mouse_move(int x, int y, t_fractal *fractal)
-{
-	if (!fractal)
-		return (0);
-	fractal->mouse_x = x;
-	fractal->mouse_y = y;
-	return (0);
+	fractal->center_x = 0.0;
+	fractal->center_y = 0.0;
+	fractal->world_x = 0.0;
+	fractal->world_y = 0.0;
 }
 
 void	events_init(t_fractal *fractal)
@@ -30,10 +23,10 @@ void	events_init(t_fractal *fractal)
 							 key_handler,
 							 fractal);
 	/* mlx_mouse_hook(fractal->mlx_window, zooming, fractal); */
-	mlx_hook(fractal->mlx_window, MotionNotify, 
+	/* mlx_hook(fractal->mlx_window, MotionNotify, 
 								PointerMotionMask, 
 								mouse_move, 
-								fractal);
+								fractal); */
 	mlx_mouse_hook(fractal->mlx_window, &mouse_events, fractal);
 	mlx_hook(fractal->mlx_window, DestroyNotify,
 							 StructureNotifyMask,
