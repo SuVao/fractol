@@ -14,6 +14,8 @@ void	dat_init(t_fractal *fractal)
 	fractal->center_y = 0.0;
 	fractal->world_x = 0.0;
 	fractal->world_y = 0.0;
+	fractal->pre_x = 0.0;
+	fractal->pre_y = 0.0;
 }
 
 void	events_init(t_fractal *fractal)

@@ -6,7 +6,7 @@
 /*   By: pesilva- <pesilva-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:21:03 by pesilva-          #+#    #+#             */
-/*   Updated: 2024/09/19 17:53:34 by pesilva-         ###   ########.fr       */
+/*   Updated: 2024/09/20 09:15:43 by pesilva-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ typedef struct s_fractal
 	int		center_y;
 	double	world_x;
 	double	world_y;
+	double	pre_x;
+	double	pre_y;
 	double	shift_x;
 	double	shift_y;
 	double	zoom;
