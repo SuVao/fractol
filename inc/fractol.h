@@ -6,7 +6,7 @@
 /*   By: pesilva- <pesilva-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:21:03 by pesilva-          #+#    #+#             */
-/*   Updated: 2024/09/20 09:15:43 by pesilva-         ###   ########.fr       */
+/*   Updated: 2024/09/20 16:53:04 by pesilva-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,5 +128,6 @@ int			interpolate_color(double t, int color1, int color2);
 void		zoom_out(t_fractal *fractal, int x, int y, int key);
 double		map_x(int x, double min, double max, t_fractal *fractal);
 double		map_y(int x, double min, double max, t_fractal *fractal);
+void		msg_error(char	*s, t_fractal *fractal);
 
 #endif

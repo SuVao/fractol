@@ -6,7 +6,7 @@
 /*   By: pesilva- <pesilva-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:04:50 by pesilva-          #+#    #+#             */
-/*   Updated: 2024/09/18 19:07:56 by pesilva-         ###   ########.fr       */
+/*   Updated: 2024/09/20 16:54:06 by pesilva-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,15 @@ void	malloc_error(void)
 {
 	perror("Problems with malloc");
 	exit(EXIT_FAILURE);
+}
+
+void	msg_error(char	*s, t_fractal *fractal)
+{
+	if (!s)
+		return ;
+	else
+	{
+		write(2, s, sizeof(s));
+		ft_destroy(fractal);
+	}
 }

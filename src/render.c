@@ -69,8 +69,8 @@ void handle_pixel(int x, int y, t_fractal *fractal)
 	i = 0;
 	z.real = 0.0;
 	z.i = 0.0;
-	c.real = cool_map(x , -2, +2, WIDTH) * fractal->zoom + fractal->center_x;
-	c.i = cool_map(y , +2, -2, HEIGHT) * fractal->zoom + fractal->center_y;
+	c.real = cool_map(x , -2, +2, WIDTH) * fractal->zoom + fractal->shift_x ;
+	c.i = cool_map(y , +2, -2, HEIGHT) * fractal->zoom + fractal->shift_y ;
 	/* printf("x: %f, y: %f\n", fractal->ori_x, fractal->ori_y); */
 	c2 = (c.real * c.real) + (c.i * c.i);
 
