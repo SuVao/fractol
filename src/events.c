@@ -6,7 +6,7 @@
 /*   By: pesilva- <pesilva-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 12:49:36 by pesilva-          #+#    #+#             */
-/*   Updated: 2024/09/20 10:11:47 by pesilva-         ###   ########.fr       */
+/*   Updated: 2024/09/20 12:36:20 by pesilva-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 double	map_x(int x, double min, double max, t_fractal *fractal)
 {
-	min = min / fractal->zoom + fractal->shift_x;
-	max = max / fractal->zoom + fractal->shift_x;
+	min = min / fractal->zoom + fractal->center_x;
+	max = max / fractal->zoom + fractal->center_x;
 	return (min + ((double)x / WIDTH) * (max - min));
 }
 
 double	map_y(int y, double min, double max, t_fractal *fractal)
 {
-	min = min / fractal->zoom + fractal->shift_y;
-	max = max / fractal->zoom + fractal->shift_y;
+	min = min / fractal->zoom + fractal->center_y;
+	max = max / fractal->zoom + fractal->center_y;
 	return (min + ((double)y / HEIGHT) * (max - min));
 }
 
@@ -61,10 +61,10 @@ void	zoom_out(t_fractal *fractal, int x, int y, int key)
 	printf("x: %d y: %d\n", x, y);
 	printf("world_x: %f world_y: %f\n", fractal->world_x, fractal->world_y);
 	printf("center_x: %d center_y: %d \n", fractal->center_x, fractal->center_y);
-/* 	fractal->world_x = map_x(x, -2, 2, fractal) * fractal->zoom;
+	/* fractal->world_x = map_x(x, -2, 2, fractal) * fractal->zoom;
     fractal->world_y = map_y(y, 2, -2, fractal) * fractal->zoom; */
-	fractal->shift_x *= fractal->zoom;
-    fractal->shift_y *= fractal->zoom;
+	fractal->shift_x = (x - (WIDTH / 2)) / (WIDTH / 2) * fractal->zoom;
+    fractal->shift_y = (y - (HEIGHT / 2)) / (HEIGHT / 2) * fractal->zoom;
 	fractal_render(fractal);
 }
 
@@ -90,8 +90,8 @@ void	zoom_out(t_fractal *fractal, int x, int y, int key)
 
 int	mouse_events(int key, int x, int y, t_fractal *fractal)
 {
-	fractal->center_x = x;
-	fractal->center_y = y;
+	fractal->center_x = fractal->shift_x;
+	fractal->center_y = fractal->shift_y;
 	if (key == SCROLL_UP)
 		zoom_in(key, fractal, x, y);
 	else if (key == SCROLL_DOWN)
