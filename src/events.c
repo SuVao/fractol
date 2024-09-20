@@ -6,7 +6,7 @@
 /*   By: pesilva- <pesilva-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 12:49:36 by pesilva-          #+#    #+#             */
-/*   Updated: 2024/09/20 12:36:20 by pesilva-         ###   ########.fr       */
+/*   Updated: 2024/09/20 15:29:01 by pesilva-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,16 @@ void	zoom_out(t_fractal *fractal, int x, int y, int key)
 	fractal->pre_y = map_y(y, 2, -2, fractal);
 	if (key == SCROLL_DOWN)
 		fractal->zoom *= 1.05;
-	printf("shift_x: %f shift_y: %f\n", fractal->shift_x, fractal->shift_y);
+	//printf("shift_x: %f shift_y: %f\n", fractal->shift_x, fractal->shift_y);
 	printf("x: %d y: %d\n", x, y);
 	printf("world_x: %f world_y: %f\n", fractal->world_x, fractal->world_y);
 	printf("center_x: %d center_y: %d \n", fractal->center_x, fractal->center_y);
 	/* fractal->world_x = map_x(x, -2, 2, fractal) * fractal->zoom;
     fractal->world_y = map_y(y, 2, -2, fractal) * fractal->zoom; */
-	fractal->shift_x = (x - (WIDTH / 2)) / (WIDTH / 2) * fractal->zoom;
-    fractal->shift_y = (y - (HEIGHT / 2)) / (HEIGHT / 2) * fractal->zoom;
+	fractal->shift_x = (x - (WIDTH / 2)) / (WIDTH / 2);
+    fractal->shift_y = (y - (HEIGHT / 2)) / (HEIGHT / 2);
+	fractal->shift_x *= fractal->zoom;
+	fractal->shift_y *= fractal->zoom;
 	fractal_render(fractal);
 }
 
