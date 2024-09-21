@@ -73,21 +73,45 @@ double	clamp(double x, double min_val, double max_val)
 // 	return (color);
 // }
 
-int interpolate_color(double t, int color1, int color2)
+// int interpolate_color(double t, int color1, int color2)
+// {
+// 	int r1 = (color1 >> 16) & 0xFF;
+// 	int g1 = (color1 >> 8) & 0xFF;
+// 	int b1 = color1 & 0xFF;
+
+// 	int r2 = (color2 >> 16) & 0xFF;
+// 	int g2 = (color2 >> 8) & 0xFF;
+// 	int b2 = color2 & 0xFF;
+
+// 	int r = (int)((1 - t) * r1 + t * r2);
+// 	int g = (int)((1 - t) * g1 + t * g2);
+// 	int b = (int)((1 - t) * b1 + t * b2);
+
+// 	return ((r << 16) | (g << 8) | b);
+// }
+
+int quilez_color(double l)
 {
-	int r1 = (color1 >> 16) & 0xFF;
-	int g1 = (color1 >> 8) & 0xFF;
-	int b1 = color1 & 0xFF;
+	double r, g, b;
 
-	int r2 = (color2 >> 16) & 0xFF;
-	int g2 = (color2 >> 8) & 0xFF;
-	int b2 = color2 & 0xFF;
+	// Geração de cores com base na lógica de Inigo Quilez
+	r = 0.5 + 0.5 * cos(3.0 + l * 0.15);
+	g = 0.5 + 0.5 * cos(3.0 + l * 0.15 + 0.6);
+	b = 0.5 + 0.5 * cos(3.0 + l * 0.15 + 1.0);
 
-	int r = (int)((1 - t) * r1 + t * r2);
-	int g = (int)((1 - t) * g1 + t * g2);
-	int b = (int)((1 - t) * b1 + t * b2);
+	// Converter para o formato RGB
+	int red = (int)(r * 255.0);
+	int green = (int)(g * 255.0);
+	int blue = (int)(b * 255.0);
 
-	return ((r << 16) | (g << 8) | b);
+	// Retornar a cor no formato hexadecimal (0xRRGGBB)
+	return (red << 16) | (green << 8) | blue;
+}
+
+int interpolate_color(double t)
+{
+	// Usar a função quilez_color para gerar cores suaves
+	return quilez_color(t * 512.0); // t mapeado para o intervalo das iterações
 }
 
 void	void_calc(t_fractal *fractal, int x, int y, t_complex c)
@@ -111,7 +135,7 @@ int	smoothed_coloring(t_fractal *fractal, int i, t_complex z)
 
 	smooth_i = smooth_iteration(i, z);
 	smoothed_color = smoothstep(-1, 1, smooth_i / fractal->iters);
-	color = interpolate_color(smoothed_color, BLACK, WHITE);
+	color = interpolate_color(smoothed_color);
 	return (color);
 }
 

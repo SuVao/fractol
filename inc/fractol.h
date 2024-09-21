@@ -46,12 +46,9 @@ typedef struct s_fractal
 	char	*name;
 	double	escaped;
 	int		iters;
-	int		center_x;
-	int		center_y;
-	double	world_x;
-	double	world_y;
-	double	pre_x;
-	double	pre_y;
+	int		r;
+	int		g;
+	int		b;
 	double	shift_x;
 	double	shift_y;
 	double	zoom;
@@ -124,10 +121,11 @@ int			ft_destroy(t_fractal *fractal);
 double		clamp(double x, double min_val, double max_val);
 int			mouse_events(int key, int x, int y, t_fractal *fractal);
 double		cool_map2(int value, double min, double max, int dimension);
-int			interpolate_color(double t, int color1, int color2);
 void		zoom_out(t_fractal *fractal, int x, int y, int key);
 double		map_x(int x, double min, double max, t_fractal *fractal);
 double		map_y(int x, double min, double max, t_fractal *fractal);
 void		msg_error(char	*s, t_fractal *fractal);
+//int			interpolate_color(double t, int color1, int color2);
+int interpolate_color(double t);
 
 #endif

@@ -4,18 +4,13 @@ void	dat_init(t_fractal *fractal)
 {
 	if (!fractal)
 		return ;
-	
+
 	fractal->escaped = 4;
-	fractal->iters = 42;
+	fractal->iters = 100;
 	fractal->shift_x = 0.0;
 	fractal->shift_y = 0.0;
-	fractal->zoom = 1.0; 
-	fractal->center_x = 0.0;
-	fractal->center_y = 0.0;
-	fractal->world_x = 0.0;
-	fractal->world_y = 0.0;
-	fractal->pre_x = 0.0;
-	fractal->pre_y = 0.0;
+	fractal->zoom = 1.0;
+
 }
 
 void	events_init(t_fractal *fractal)
@@ -25,9 +20,9 @@ void	events_init(t_fractal *fractal)
 							 key_handler,
 							 fractal);
 	/* mlx_mouse_hook(fractal->mlx_window, zooming, fractal); */
-	/* mlx_hook(fractal->mlx_window, MotionNotify, 
-								PointerMotionMask, 
-								mouse_move, 
+	/* mlx_hook(fractal->mlx_window, MotionNotify,
+								PointerMotionMask,
+								mouse_move,
 								fractal); */
 	mlx_mouse_hook(fractal->mlx_window, &mouse_events, fractal);
 	mlx_hook(fractal->mlx_window, DestroyNotify,
