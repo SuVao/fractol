@@ -6,10 +6,17 @@ void	dat_init(t_fractal *fractal)
 		return ;
 
 	fractal->escaped = 4;
-	fractal->iters = 100;
+	fractal->iters = 500;
 	fractal->shift_x = 0.0;
 	fractal->shift_y = 0.0;
 	fractal->zoom = 1.0;
+	fractal->r = 1.2;
+	fractal->g = 0.5;
+	fractal->b = 0.2;
+	fractal->use_quilez = 1;
+	fractal->red = 1;
+	fractal->green = 1;
+	fractal->blue = 1;
 
 }
 

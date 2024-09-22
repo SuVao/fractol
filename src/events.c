@@ -63,29 +63,106 @@ int	mouse_events(int key, int x, int y, t_fractal *fractal)
 	return (0);
 }
 
+int arrows_events(int keysym, t_fractal *fractal)
+{
+	if (keysym == XK_Down || keysym == S_K)
+		fractal->shift_y -= (0.5 * fractal->zoom);
+	else if (keysym == XK_Up | keysym == W_K)
+		fractal->shift_y += (0.5 * fractal->zoom);
+	else if (keysym == LEFT || keysym == A_K)
+		fractal->shift_x -= (0.5 * fractal->zoom);
+	else if (keysym == RIGHT || keysym == D_K)
+		fractal->shift_x += (0.5 * fractal->zoom);
+	return (0);
+}
+
+int	reset_fractal(t_fractal *fractal)
+{
+	fractal->zoom = 1.0;
+	fractal->shift_x = 0.0;
+	fractal->shift_y = 0.0;
+	fractal->iters = 42;
+	return (0);
+}
+
+int if_quillez(t_fractal *fractal)
+{
+	if (fractal->use_quilez == 0)
+		fractal->use_quilez = 1;
+	else if (fractal->use_quilez == 1)
+		fractal->use_quilez = 0;
+	return (0);
+}
+
+int	reaction(int keysym, t_fractal *fractal)
+{
+	if (keysym == MINUS)
+		fractal->iters -= 10;
+	else if (keysym == PLUS)
+		fractal->iters += 10;
+	return (0);
+}
+
+int r_g_b(int key, t_fractal *fractal)
+{
+	int	sign_r;
+	int	sign_g;
+	int	sign_b;
+
+	sign_r = 0;
+	sign_g = 0;
+	sign_b = 0;
+	if (key == R && sign_r == 0)
+	{
+		fractal->color = COR_MAGENTA_PSICODELICO;
+		sign_r = 1;
+	}
+	else if (key == R && sign_r == 1)
+	{
+		fractal->color = COR_VERMELHO_FLUORESCENTE;
+		sign_r = 0;
+	}
+	else if (key == G && sign_g == 0)
+	{
+		fractal->color = COR_VERDE_NEON;
+		sign_g = 1;
+	}
+	else if (key == G && sign_g == 1)
+	{
+		fractal->color = COR_VERDE_LIMA;
+		sign_g = 0;
+	}
+	else if (key == B && sign_b == 0)
+	{
+		fractal->color = COR_AZUL_TURQUESA;
+		sign_b = 1;
+	}
+	else if (key == B && sign_b == 1)
+	{
+		fractal->color = STEEL_BLUE;
+		sign_b = 0;
+	}
+	return (0);
+}
+
 int	key_handler(int keysym, t_fractal *fractal)
 {
 	if (keysym == ESC || !fractal)
 		ft_destroy(fractal);
-	else if (keysym == XK_Down)
-		fractal->shift_y -= (0.5 * fractal->zoom);
-	else if (keysym == XK_Up)
-		fractal->shift_y += (0.5 * fractal->zoom);
-	else if (keysym == LEFT)
-		fractal->shift_x -= (0.5 * fractal->zoom);
-	else if (keysym == RIGHT)
-		fractal->shift_x += (0.5 * fractal->zoom);
-	else if (keysym == MINUS)
-		fractal->iters -= 10;
-	else if (keysym == PLUS)
-		fractal->iters += 10;
+	else if (keysym == XK_Down || keysym == XK_Up \
+			|| keysym == LEFT || keysym == RIGHT)
+		arrows_events(keysym, fractal);
+	else if (keysym == W_K || keysym == S_K \
+			|| keysym == A_K || keysym == D_K)
+		arrows_events(keysym, fractal);
+	else if (keysym == MINUS || keysym == PLUS)
+		reaction(keysym, fractal);
+	else if (keysym == R || keysym == G || keysym == B)
+		r_g_b(keysym, fractal);
 	else if (keysym == DOT)
-	{
-		fractal->zoom = 1.0;
-		fractal->shift_x = 0.0;
-		fractal->shift_y = 0.0;
-		fractal->iters = 42;
-	}
+		reset_fractal(fractal);
+	else if (keysym == U_K)
+		if_quillez(fractal);
 	fractal_render(fractal);
 	return 0;
 }

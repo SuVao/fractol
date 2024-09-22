@@ -46,12 +46,17 @@ typedef struct s_fractal
 	char	*name;
 	double	escaped;
 	int		iters;
-	int		r;
-	int		g;
-	int		b;
 	double	shift_x;
 	double	shift_y;
+	double		r;
+	double		g;
+	double		b;
 	double	zoom;
+	int		use_quilez;
+	int		red;
+	int		green;
+	int		blue;
+	int		color;
 }				t_fractal;
 
 # define HEIGHT 800
@@ -81,6 +86,7 @@ typedef struct s_fractal
 # define A_K 97
 # define S_K 115
 # define D_K 100
+# define U_K 117
 # define SHIFT 65505
 # define R 114
 # define G 103
@@ -126,6 +132,7 @@ double		map_x(int x, double min, double max, t_fractal *fractal);
 double		map_y(int x, double min, double max, t_fractal *fractal);
 void		msg_error(char	*s, t_fractal *fractal);
 //int			interpolate_color(double t, int color1, int color2);
-int interpolate_color(double t);
+//int interpolate_color(double t);
+int interpolate_color(double t, t_fractal *fractal, int use_quilez);
 
 #endif
