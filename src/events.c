@@ -34,7 +34,7 @@ void zoom_in(int key, t_fractal *fractal, int x, int y)
 	mouse_x = map_x(x, -2.0, 2.0, fractal);
 	mouse_y = map_y(y, 2.0, -2.0, fractal);
 	if (key == SCROLL_UP)
-		fractal->zoom *= 0.95;  // Zoom in
+		fractal->zoom *= 0.80;  // Zoom in
 	fractal->shift_x += (mouse_x - map_x(x, -2.0, 2.0, fractal));
 	fractal->shift_y += (mouse_y - map_y(y, 2.0, -2.0, fractal));
 	fractal_render(fractal);
@@ -48,7 +48,7 @@ void	zoom_out(t_fractal *fractal, int x, int y, int key)
 	mouse_x = map_x(x, -2.0, 2.0, fractal);
 	mouse_y = map_y(y, 2.0, -2.0, fractal);
 	if (key == SCROLL_DOWN)
-		fractal->zoom *= 1.05;  // Zoom out
+		fractal->zoom *= 1.20;  // Zoom out
 	fractal->shift_x += (mouse_x - map_x(x, -2.0, 2.0, fractal));
 	fractal->shift_y += (mouse_y - map_y(y, 2.0, -2.0, fractal));
 	fractal_render(fractal);
@@ -82,6 +82,8 @@ int	reset_fractal(t_fractal *fractal)
 	fractal->shift_x = 0.0;
 	fractal->shift_y = 0.0;
 	fractal->iters = 42;
+	fractal->sm1 = 1.0;
+	fractal->sm2 = 1.0;
 	return (0);
 }
 
@@ -114,7 +116,7 @@ int r_g_b(int key, t_fractal *fractal)
 	sign_b = 0;
 	if (key == R && sign_r == 0)
 	{
-		fractal->color = COR_MAGENTA_PSICODELICO;
+		fractal->color = COR_VERMELHO_FLUORESCENTE;
 		sign_r = 1;
 	}
 	else if (key == R && sign_r == 1)
@@ -145,6 +147,29 @@ int r_g_b(int key, t_fractal *fractal)
 	return (0);
 }
 
+int smoth_st(int keysym, t_fractal *fractal)
+{
+	if (fractal->use_quilez == 1)
+	{
+		if (keysym == N_K)
+			fractal->sm1 = 2.0;
+		else if (keysym == M_K)
+			fractal->sm1 = 3.0;
+		else if (keysym == COMMA)
+			fractal->sm1 = 9.0;
+	}
+	else if (fractal->use_quilez == 0)
+	{
+		if (keysym == N_K)
+			fractal->sm2 = 2.0;
+		else if (keysym == M_K)
+			fractal->sm2 = 3.0;
+		else if (keysym == COMMA)
+			fractal->sm2 = 9.0;
+	}
+	return (0);
+}
+
 int	key_handler(int keysym, t_fractal *fractal)
 {
 	if (keysym == ESC || !fractal)
@@ -161,6 +186,8 @@ int	key_handler(int keysym, t_fractal *fractal)
 		r_g_b(keysym, fractal);
 	else if (keysym == DOT)
 		reset_fractal(fractal);
+	else if (keysym == N_K || keysym == M_K || keysym == COMMA)
+		smoth_st(keysym, fractal);
 	else if (keysym == U_K)
 		if_quillez(fractal);
 	fractal_render(fractal);

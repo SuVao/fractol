@@ -18,7 +18,7 @@ int	main(void)
 	mlx = mlx_init();
 	mlx_win = mlx_new_window(mlx, 800, 800, "Hello world!");
 	img.img = mlx_new_image(mlx, 800, 800);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, 
+	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel,
 			&img.line_length, &img.endian);
 
 	for (int i = 200; i <= 600; i++)
@@ -47,14 +47,15 @@ int main(int ac, char **av)
 		fractal_render(&fractal);
 		mlx_loop(fractal.mlx_connetion);
 	}
-	/* else if (4 == ac && !ft_strncmp(av[1], "julia", 5))
+	else if (4 == ac && !ft_strncmp(av[1], "julia", 5))
 	{
+
 		fractal.name = av[1];
 		fractal_init(&fractal);
-		fractal_render(&fractal);
+		julia_render(&fractal);
 		mlx_loop(fractal.mlx_connetion);
 	}
-	else if (4 == ac && !ft_strncmp(av[1], "phoenix", 7))
+	/*else if (4 == ac && !ft_strncmp(av[1], "phoenix", 7))
 	{
 		fractal.name = av[1];
 		fractal_init(&fractal);

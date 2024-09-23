@@ -42,3 +42,42 @@ t_complex	square_complex(t_complex z)
 	res.i = 2 * z.real * z.i;
 	return (res);
 }
+
+double	atod(char *str)
+{
+	double	result;
+	double	decimal_part;
+	int		sign;
+	int		i;
+
+	result = 0.0;
+	decimal_part = 0.0;
+	sign = 1;
+	i = 0;
+	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n' || \
+			str[i] == '\v' || str[i] == '\f' || str[i] == '\r')
+		i++;
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+			sign = -1;
+		i++;
+	}
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		result = (result * 10.0) + (str[i] - '0');
+		i++;
+	}
+	if (str[i] == '.')
+	{
+		double divisor = 10.0;
+		i++;
+		while (str[i] >= '0' && str[i] <= '9')
+		{
+			decimal_part += (str[i] - '0') / divisor;
+			divisor *= 10.0;
+			i++;
+		}
+	}
+	return (sign * (result + decimal_part));
+}

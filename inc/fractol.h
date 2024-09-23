@@ -57,6 +57,8 @@ typedef struct s_fractal
 	int		green;
 	int		blue;
 	int		color;
+	float	sm1;
+	float	sm2;
 }				t_fractal;
 
 # define HEIGHT 800
@@ -87,12 +89,16 @@ typedef struct s_fractal
 # define S_K 115
 # define D_K 100
 # define U_K 117
+# define N_K 110
+# define M_K 109
+# define COMMA 44
 # define SHIFT 65505
 # define R 114
 # define G 103
 # define B 98
 # define SCROLL_UP 4
 # define SCROLL_DOWN 5
+
 
 /*--------------CORES----------------*/
 # define BLACK 0x000000
@@ -134,5 +140,6 @@ void		msg_error(char	*s, t_fractal *fractal);
 //int			interpolate_color(double t, int color1, int color2);
 //int interpolate_color(double t);
 int interpolate_color(double t, t_fractal *fractal, int use_quilez);
+void julia_render(t_fractal *fractal);
 
 #endif
