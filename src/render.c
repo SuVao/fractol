@@ -36,22 +36,23 @@ double	clamp(double x, double min_val, double max_val)
 		return (x);
 }
 
-int quilez_color(double l)
+int quilez_color(double l, t_fractal *fractal)
 {
-	double r, g, b;
-
+    fractal->r_1 = fractal->r;
+    fractal->g_1 = fractal->g;
+    fractal->b_1 = fractal->b;
 	// Geração de cores com base na lógica de Inigo Quilez
-	r = 0.5 + 0.5 * cos(3.0 + l * 0.15);
-	g = 0.5 + 0.5 * cos(3.0 + l * 0.15 + 0.6);
-	b = 0.5 + 0.5 * cos(3.0 + l * 0.15 + 1.0);
+	fractal->r = 0.5 + 0.5 * cos(3.0 + l * 0.15);
+	fractal->g = 0.5 + 0.5 * cos(3.0 + l * 0.15 + 0.6);
+	fractal->b = 0.5 + 0.5 * cos(3.0 + l * 0.15 + 1.0);
 
 	// Converter para o formato RGB
-	int red = (int)(r * 255.0);
-	int green = (int)(g * 255.0);
-	int blue = (int)(b * 255.0);
+	fractal->red = (int)(fractal->r * 255.0);
+	fractal->green = (int)(fractal->g * 255.0);
+	fractal->blue = (int)(fractal->b * 255.0);
 
 	// Retornar a cor no formato hexadecimal (0xRRGGBB)
-	return ((red << 16) | (green << 8) | blue);
+	return ((fractal->red << 16) | (fractal->green << 8) | fractal->blue);
 }
 
 int interpolate_color(double t, t_fractal *fractal, int use_quilez)
@@ -59,14 +60,13 @@ int interpolate_color(double t, t_fractal *fractal, int use_quilez)
 	if (use_quilez)
 	{
 		// Usa a paleta de Quilez para calcular a cor
-		fractal->color = quilez_color(t * 512.0);
+		fractal->color = quilez_color(t * 512.0, fractal);
 	}
 	else
 	{
-		// Valores de RGB base
-		int start_r = fractal->r * 255; // cor inicial de r, g, b
-		int start_g = fractal->g * 255;
-		int start_b = fractal->b * 255;
+		int start_r = fractal->r_1 * 255; // cor inicial de r, g, b
+		int start_g = fractal->g_1 * 255;
+		int start_b = fractal->b_1 * 255;
 
 		// Valores de RGB de destino (podes mudar as cores de destino conforme desejado)
 		int end_r = 255; // cor final de r (branco ou outra cor de destino)
@@ -192,6 +192,7 @@ void handle_julia_pixel(int x, int y, t_fractal *fractal, t_complex c)
 
 void set_julia_constants(t_complex c)
 {
+    (void)c;
 	// Esses valores podem ser alterados para gerar diferentes conjuntos de Julia
 	c.i = -0.4;
 	c.real = 0.6;

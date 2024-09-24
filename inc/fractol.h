@@ -48,9 +48,12 @@ typedef struct s_fractal
 	int		iters;
 	double	shift_x;
 	double	shift_y;
-	double		r;
-	double		g;
-	double		b;
+	float		r;
+	float		g;
+	float		b;
+	float		r_1;
+	float		g_1;
+	float		b_1;
 	double	zoom;
 	int		use_quilez;
 	int		red;

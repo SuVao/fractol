@@ -67,7 +67,7 @@ int arrows_events(int keysym, t_fractal *fractal)
 {
 	if (keysym == XK_Down || keysym == S_K)
 		fractal->shift_y -= (0.5 * fractal->zoom);
-	else if (keysym == XK_Up | keysym == W_K)
+	else if (keysym == XK_Up || keysym == W_K)
 		fractal->shift_y += (0.5 * fractal->zoom);
 	else if (keysym == LEFT || keysym == A_K)
 		fractal->shift_x -= (0.5 * fractal->zoom);

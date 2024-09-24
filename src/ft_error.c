@@ -28,11 +28,14 @@ void	malloc_error(void)
 
 void	msg_error(char	*s, t_fractal *fractal)
 {
+    int o;
+
 	if (!s)
 		return ;
 	else
 	{
-		write(2, s, sizeof(s));
+		 o = write(2, s, sizeof(s));
+		(void)o;
 		ft_destroy(fractal);
 	}
 }

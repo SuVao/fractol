@@ -16,7 +16,7 @@ SRC_DIR = ./src
 OBJ_DIR = ./obj
 MINILIBX_DIR = ./minilibx-linux
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -O3 -g
+CFLAGS = -Wall -Werror -Wextra -O3 -g -I/minilibx-linux -Imlx_linux
 
 SRC_FILES = main.c \
 			init.c \
@@ -44,9 +44,10 @@ all: $(NAME)
 
 clean:
 	rm -rf $(OBJ_DIR)
+	$(MAKE) clean -C $(MINILIBX_DIR)
 
 fclean: clean
-	clean -C $(MINILIBX_DIR)
+	$(MAKE) fclean -C $(MINILIBX_DIR)
 	rm -f $(NAME)
 
 re: fclean all
