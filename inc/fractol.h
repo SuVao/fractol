@@ -62,6 +62,8 @@ typedef struct s_fractal
 	int		color;
 	float	sm1;
 	float	sm2;
+	double	input1;
+	double	input2;
 }				t_fractal;
 
 # define HEIGHT 800
@@ -144,5 +146,6 @@ void		msg_error(char	*s, t_fractal *fractal);
 //int interpolate_color(double t);
 int interpolate_color(double t, t_fractal *fractal, int use_quilez);
 void julia_render(t_fractal *fractal);
+double	atod(char *str);
 
 #endif

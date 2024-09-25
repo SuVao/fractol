@@ -70,7 +70,7 @@ int interpolate_color(double t, t_fractal *fractal, int use_quilez)
 
 		// Valores de RGB de destino (podes mudar as cores de destino conforme desejado)
 		int end_r = 255; // cor final de r (branco ou outra cor de destino)
-		int end_g = 0;   // cor final de g
+		int end_g = 127;   // cor final de g
 		int end_b = 255; // cor final de b
 
 		// Interpolação linear das cores com base no valor de t
@@ -84,7 +84,7 @@ int interpolate_color(double t, t_fractal *fractal, int use_quilez)
 		fractal->blue = clamp(fractal->blue, 0, 255);
 
 		// Combina os valores RGB num único valor de cor
-		fractal->color = (fractal->red << 16) | (fractal->green << 8) | fractal->blue;
+		fractal->color = (fractal->red << 8) | (fractal->green << 16) | fractal->blue;
 	}
 	return (fractal->color);
 }
@@ -116,6 +116,20 @@ int	smoothed_coloring(t_fractal *fractal, int i, t_complex z)
 	return (color);
 }
 
+void	mandel_julia(t_complex *z, t_complex *c, t_fractal *fractal)
+{
+	if (!ft_strncmp(fractal->name, "julia", 5))
+	{
+		c->real = fractal->input1;
+		c->i = fractal->input2;
+	}
+	else if (!ft_strncmp(fractal->name, "mandelbrot", 10))
+	{
+		c->real = z->real;
+		c->i = z->i;
+	}
+}
+
 void	handle_pixel(int x, int y, t_fractal *fractal)
 {
 	t_complex	z;
@@ -124,10 +138,9 @@ void	handle_pixel(int x, int y, t_fractal *fractal)
 	int			color;
 
 	i = 0;
-	z.real = 0.0;
-	z.i = 0.0;
-	c.real = cool_map(x, -2, +2, WIDTH) * fractal->zoom + fractal->shift_x;
-	c.i = cool_map(y, +2, -2, HEIGHT) * fractal->zoom + fractal->shift_y;
+	z.real = cool_map(x, -2, +2, WIDTH) * fractal->zoom + fractal->shift_x;
+	z.i = cool_map(y, +2, -2, HEIGHT) * fractal->zoom + fractal->shift_y;
+	mandel_julia(&z, &c, fractal);
 	if (void_calc(fractal, x, y, c))
 		return ;
 	while (i < fractal->iters)
@@ -164,59 +177,60 @@ void	fractal_render(t_fractal *fractal)
 							fractal->img.img, 0, 0);
 }
 
-void handle_julia_pixel(int x, int y, t_fractal *fractal, t_complex c)
-{
-	t_complex	z;
-	int			i;
-	int			color;
+// void handle_julia_pixel(int x, int y, t_fractal *fractal, t_complex c)
+// {
+// 	t_complex	z;
+// 	int			i;
+// 	int			color;
 
-	// z começa como o pixel atual mapeado para o plano complexo
-	z.real = cool_map(x, -2, +2, WIDTH) * fractal->zoom + fractal->shift_x;
-	z.i = cool_map(y, +2, -2, HEIGHT) * fractal->zoom + fractal->shift_y;
+// 	// z começa como o pixel atual mapeado para o plano complexo
+// 	z.real = cool_map(x, -2, +2, WIDTH) * fractal->zoom + fractal->shift_x;
+// 	z.i = cool_map(y, +2, -2, HEIGHT) * fractal->zoom + fractal->shift_y;
 
-	i = 0;
-	while (i < fractal->iters)
-	{
-		z = sum_complex(square_complex(z), c);  // Agora o 'c' é constante
-		if ((z.real * z.real) + (z.i * z.i) > fractal->escaped)  // Checa a fuga
-		{
-			color = smoothed_coloring(fractal, i, z);
-			my_pixel_put(&fractal->img, x, y, color);
-			return ;
-		}
-		i++;
-	}
-	// Se não escapou, pinta de preto
-	my_pixel_put(&fractal->img, x, y, BLACK);
-}
+// 	i = 0;
+// 	while (i < fractal->iters)
+// 	{
+// 		z = sum_complex(square_complex(z), c);  // Agora o 'c' é constante
+// 		if ((z.real * z.real) + (z.i * z.i) > fractal->escaped)  // Checa a fuga
+// 		{
+// 			color = smoothed_coloring(fractal, i, z);
+// 			my_pixel_put(&fractal->img, x, y, color);
+// 			return ;
+// 		}
+// 		i++;
+// 	}
+// 	// Se não escapou, pinta de preto
+// 	my_pixel_put(&fractal->img, x, y, BLACK);
+// }
 
-void set_julia_constants(t_complex c)
-{
-    (void)c;
-	// Esses valores podem ser alterados para gerar diferentes conjuntos de Julia
-	c.i = -0.4;
-	c.real = 0.6;
-}
-void julia_render(t_fractal *fractal)
-{
-	int	x;
-	int	y;
-	t_complex	c;
+// void set_julia_constants(t_complex c, t_fractal *fractal)
+// {
+//     (void)c;
+// 	// Esses valores podem ser alterados para gerar diferentes conjuntos de Julia
+// 	c.i = fractal->input1;
+// 	c.real = fractal->input2;
+// 	printf("c.real = %f, c.i = %f\n", c.real, c.i);
+// }
+// void julia_render(t_fractal *fractal)
+// {
+// 	int	x;
+// 	int	y;
+// 	t_complex	c;
 
-	c.i = 0.0;
-	c.real = 0.0;// Inicializa a constante c
-	set_julia_constants(c);  // Definir a constante c do conjunto de Julia
-	y = 0;
-	while (y < HEIGHT)
-	{
-		x = 0;
-		while (x < WIDTH)
-		{
-			handle_julia_pixel(x, y, fractal, c);  // Use o novo handler para o Julia
-			x++;
-		}
-		y++;
-	}
-	mlx_put_image_to_window(fractal->mlx_connetion, fractal->mlx_window, \
-							fractal->img.img, 0, 0);
-}
+// 	c.i = 0.0;
+// 	c.real = 0.0;// Inicializa a constante c
+// 	set_julia_constants(c, fractal);  // Definir a constante c do conjunto de Julia
+// 	y = 0;
+// 	while (y < HEIGHT)
+// 	{
+// 		x = 0;
+// 		while (x < WIDTH)
+// 		{
+// 			handle_julia_pixel(x, y, fractal, c);  // Use o novo handler para o Julia
+// 			x++;
+// 		}
+// 		y++;
+// 	}
+// 	mlx_put_image_to_window(fractal->mlx_connetion, fractal->mlx_window, \
+// 							fractal->img.img, 0, 0);
+// }

@@ -43,41 +43,30 @@ t_complex	square_complex(t_complex z)
 	return (res);
 }
 
-double	atod(char *str)
+double	atod(char *s)
 {
-	double	result;
-	double	decimal_part;
+	long	int_res;
+	double	dec_res;
+	double		i;
 	int		sign;
-	int		i;
 
-	result = 0.0;
-	decimal_part = 0.0;
+	i = 1;
+	int_res = 0;
+	dec_res = 0;
 	sign = 1;
-	i = 0;
-	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n' || \
-			str[i] == '\v' || str[i] == '\f' || str[i] == '\r')
-		i++;
-	if (str[i] == '-' || str[i] == '+')
-	{
-		if (str[i] == '-')
+	while ((*s >= 9 && *s <= 13) || *s == 13)
+		s++;
+	if (*s == '-' || *s == '+')
+		if ('-' == *s++)
 			sign = -1;
-		i++;
-	}
-	while (str[i] >= '0' && str[i] <= '9')
+	while (*s != '.' && *s >= '0' && *s <= '9')
+		int_res = int_res * 10 + *s++ - '0';
+	if (*s == '.')
+		s++;
+	while (*s >= '0' && *s <= '9')
 	{
-		result = (result * 10.0) + (str[i] - '0');
-		i++;
+		i /= 10;
+		dec_res += (*s++ - '0') * i;
 	}
-	if (str[i] == '.')
-	{
-		double divisor = 10.0;
-		i++;
-		while (str[i] >= '0' && str[i] <= '9')
-		{
-			decimal_part += (str[i] - '0') / divisor;
-			divisor *= 10.0;
-			i++;
-		}
-	}
-	return (sign * (result + decimal_part));
+	return (sign * (int_res + dec_res));
 }

@@ -161,11 +161,11 @@ int smoth_st(int keysym, t_fractal *fractal)
 	else if (fractal->use_quilez == 0)
 	{
 		if (keysym == N_K)
-			fractal->sm2 = 2.0;
+			fractal->r_1 = 1.0;
 		else if (keysym == M_K)
-			fractal->sm2 = 3.0;
+			fractal->color = fractal->color << 1;
 		else if (keysym == COMMA)
-			fractal->sm2 = 9.0;
+			fractal->b_1 = 1.0;
 	}
 	return (0);
 }
