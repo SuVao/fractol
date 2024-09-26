@@ -6,7 +6,7 @@
 /*   By: pesilva- <pesilva-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:21:03 by pesilva-          #+#    #+#             */
-/*   Updated: 2024/09/20 16:53:04 by pesilva-         ###   ########.fr       */
+/*   Updated: 2024/09/26 19:56:50 by pesilva-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,31 +126,40 @@ typedef struct s_fractal
 # define STEEL_BLUE 0x4682B4
 # define CASTANHO 0X964B00
 
+//-----------------HANDLING ERRORS-----------------//
 void		ft_error(void);
-int			ft_strncmp(const char *s1, const char *s2, size_t nb);
-void		fractal_init(t_fractal *fractal);
 void		malloc_error(void);
-double		cool_map(double unscaled_num, double new_min, double new_max,
-				double old_max);
+void		msg_error(char	*s, t_fractal *fractal);
+void		destroyer(t_fractal *fractal);
+int			ft_destroy(t_fractal *fractal);
+
+//-----------------COLORS-----------------//
+int			interpolate_color(double t, t_fractal *fractal, int use_quilez);
+double		clamp(double x, double min_val, double max_val);
+double		smoothstep(double edge0, double edge1, double x, t_fractal *fractal);
+int			smoothed_coloring(t_fractal *fractal, int i, t_complex z);
+double		smooth_iteration(int i, t_complex z);
+
+//-----------------UTILS-----------------//
+int			ft_strncmp(const char *s1, const char *s2, size_t nb);
 t_complex	sum_complex(t_complex z1, t_complex z2);
 t_complex	square_complex(t_complex z);
-void		fractal_render(t_fractal *fractal);
-void		dat_init(t_fractal *fractal);
-void		my_pixel_put(t_data *img, int x, int y, int color);
-void		handle_pixel(int x, int y, t_fractal *fractal);
 int			key_handler(int keysym, t_fractal *fractal);
-int			ft_destroy(t_fractal *fractal);
-double		clamp(double x, double min_val, double max_val);
+void		dat_init(t_fractal *fractal);
 int			mouse_events(int key, int x, int y, t_fractal *fractal);
-double		cool_map2(int value, double min, double max, int dimension);
-void		zoom_out(t_fractal *fractal, int x, int y, int key);
+double		atod(char *str);
+
+//-----------------IMAGE-----------------//
+void		fractal_render(t_fractal *fractal);
+void		fractal_init(t_fractal *fractal);
 double		map_x(int x, double min, double max, t_fractal *fractal);
 double		map_y(int x, double min, double max, t_fractal *fractal);
-void		msg_error(char	*s, t_fractal *fractal);
-//int			interpolate_color(double t, int color1, int color2);
-//int interpolate_color(double t);
-int interpolate_color(double t, t_fractal *fractal, int use_quilez);
-void julia_render(t_fractal *fractal);
-double	atod(char *str);
+double		cool_map(double unscaled_num, double new_min, double new_max,
+				double old_max);
+void		handle_pixel(int x, int y, t_fractal *fractal);
+void		zoom_out(t_fractal *fractal, int x, int y, int key);
+void		my_pixel_put(t_data *img, int x, int y, int color);
+void		mandel_julia(t_complex *z, t_complex *c, t_fractal *fractal);
+
 
 #endif

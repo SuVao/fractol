@@ -26,6 +26,23 @@ void	malloc_error(void)
 	exit(EXIT_FAILURE);
 }
 
+void	destroyer(t_fractal *fractal)
+{
+	if (fractal)
+	{
+		if (fractal->mlx_connetion && fractal->mlx_window)
+			mlx_destroy_window(fractal->mlx_connetion, fractal->mlx_window);
+		if (fractal->mlx_connetion)
+		{
+			mlx_destroy_display(fractal->mlx_connetion);
+			free(fractal->mlx_connetion);
+		}
+		if (fractal)
+			free(fractal);
+	}
+	malloc_error();
+}
+
 void	msg_error(char	*s, t_fractal *fractal)
 {
     int o;

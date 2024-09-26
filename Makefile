@@ -6,7 +6,7 @@
 #    By: pesilva- <pesilva-@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/22 14:09:36 by pesilva-          #+#    #+#              #
-#    Updated: 2024/09/15 18:04:43 by pesilva-         ###   ########.fr        #
+#    Updated: 2024/09/26 20:07:58 by pesilva-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,8 @@ SRC_FILES = main.c \
 			render.c \
 			string_utils.c \
 			window.c \
-			events.c
+			events.c \
+			color.c
 
 SRCS = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))

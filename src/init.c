@@ -4,7 +4,6 @@ void	dat_init(t_fractal *fractal)
 {
 	if (!fractal)
 		return ;
-
 	fractal->escaped = 4;
 	fractal->iters = 100;
 	fractal->shift_x = 0.0;
@@ -46,20 +45,11 @@ void	fractal_init(t_fractal *fractal)
 										HEIGHT,
 										fractal->name);
 	if (NULL == fractal->mlx_window)
-	{
-		mlx_destroy_display(fractal->mlx_connetion);
-		free(fractal->mlx_connetion);
-		malloc_error();
-	}
+		destroyer(fractal);
 	fractal->img.img = mlx_new_image(fractal->mlx_connetion, WIDTH,
 									HEIGHT);
 	if (NULL == fractal->img.img)
-	{
-		mlx_destroy_window(fractal->mlx_connetion, fractal->mlx_window);
-		mlx_destroy_display(fractal->mlx_connetion);
-		free(fractal->mlx_connetion);
-		malloc_error();
-	}
+		destroyer(fractal);
 	fractal->img.pixels_ptr = mlx_get_data_addr(fractal->img.img,
 										&fractal->img.bits_per_pixel,
 										&fractal->img.line_length,
