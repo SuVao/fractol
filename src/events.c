@@ -116,32 +116,32 @@ int r_g_b(int key, t_fractal *fractal)
 	sign_b = 0;
 	if (key == R && sign_r == 0)
 	{
-		fractal->color = COR_VERMELHO_FLUORESCENTE;
+		fractal->fcolor = COR_VERMELHO_FLUORESCENTE;
 		sign_r = 1;
 	}
 	else if (key == R && sign_r == 1)
 	{
-		fractal->color = COR_VERMELHO_FLUORESCENTE;
+		fractal->fcolor = COR_VERMELHO_FLUORESCENTE;
 		sign_r = 0;
 	}
 	else if (key == G && sign_g == 0)
 	{
-		fractal->color = COR_VERDE_NEON;
+		fractal->fcolor = COR_VERDE_NEON;
 		sign_g = 1;
 	}
 	else if (key == G && sign_g == 1)
 	{
-		fractal->color = COR_VERDE_LIMA;
+		fractal->fcolor = COR_VERDE_LIMA;
 		sign_g = 0;
 	}
 	else if (key == B && sign_b == 0)
 	{
-		fractal->color = COR_AZUL_TURQUESA;
+		fractal->fcolor = COR_AZUL_TURQUESA;
 		sign_b = 1;
 	}
 	else if (key == B && sign_b == 1)
 	{
-		fractal->color = STEEL_BLUE;
+		fractal->fcolor = STEEL_BLUE;
 		sign_b = 0;
 	}
 	return (0);
@@ -161,11 +161,11 @@ int smoth_st(int keysym, t_fractal *fractal)
 	else if (fractal->use_quilez == 0)
 	{
 		if (keysym == N_K)
-			fractal->r_1 = 1.0;
+			fractal->colors.r_1 = 1.0;
 		else if (keysym == M_K)
-			fractal->color = fractal->color << 1;
+			fractal->fcolor = fractal->fcolor << 3;
 		else if (keysym == COMMA)
-			fractal->b_1 = 1.0;
+			fractal->colors.b_1 = 1.0;
 	}
 	return (0);
 }

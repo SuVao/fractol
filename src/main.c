@@ -15,7 +15,6 @@ int main(int ac, char **av)
 		fractal.name = av[1];
 		fractal.input1 = atod(av[2]);
 		fractal.input2 = atod(av[3]);
-		printf("1: %f 2: %f \n", fractal.input1, fractal.input2);
 		fractal_init(&fractal);
 		fractal_render(&fractal);
 		mlx_loop(fractal.mlx_connetion);

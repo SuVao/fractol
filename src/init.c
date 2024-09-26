@@ -10,14 +10,14 @@ void	dat_init(t_fractal *fractal)
 	fractal->shift_x = 0.0;
 	fractal->shift_y = 0.0;
 	fractal->zoom = 1.0;
-	fractal->r = 1.2;
-	fractal->g = 0.5;
-	fractal->b = 0.2;
+	fractal->colors.r = 1.2;
+	fractal->colors.g = 0.5;
+	fractal->colors.b = 0.2;
 	fractal->use_quilez = 1;
-	fractal->red = 1;
-	fractal->green = 1;
-	fractal->blue = 1;
-	fractal->color = 0x000000;
+	fractal->colors.red = 1;
+	fractal->colors.green = 1;
+	fractal->colors.blue = 1;
+	fractal->fcolor = 0x000000;
 	fractal->sm1 = 1;
 	fractal->sm2 = 1;
 }
@@ -28,11 +28,7 @@ void	events_init(t_fractal *fractal)
 							 KeyPressMask,
 							 key_handler,
 							 fractal);
-	/* mlx_mouse_hook(fractal->mlx_window, zooming, fractal); */
-	/* mlx_hook(fractal->mlx_window, MotionNotify,
-								PointerMotionMask,
-								mouse_move,
-								fractal); */
+
 	mlx_mouse_hook(fractal->mlx_window, &mouse_events, fractal);
 	mlx_hook(fractal->mlx_window, DestroyNotify,
 							 StructureNotifyMask,

@@ -38,6 +38,19 @@ typedef struct	s_data
 	int		endian;
 }		t_data;
 
+typedef struct s_color
+{
+	int		red;
+	int		green;
+	int		blue;
+	float		r;
+	float		g;
+	float		b;
+	float		r_1;
+	float		g_1;
+	float		b_1;
+}				t_color;
+
 typedef struct s_fractal
 {
 	void	*mlx_connetion;
@@ -48,18 +61,10 @@ typedef struct s_fractal
 	int		iters;
 	double	shift_x;
 	double	shift_y;
-	float		r;
-	float		g;
-	float		b;
-	float		r_1;
-	float		g_1;
-	float		b_1;
+	t_color	colors;
 	double	zoom;
 	int		use_quilez;
-	int		red;
-	int		green;
-	int		blue;
-	int		color;
+	int		fcolor;
 	float	sm1;
 	float	sm2;
 	double	input1;

@@ -36,23 +36,23 @@ double	clamp(double x, double min_val, double max_val)
 		return (x);
 }
 
-int quilez_color(double l, t_fractal *fractal)
+int quilez_color(double l, t_color *colors)
 {
-    fractal->r_1 = fractal->r;
-    fractal->g_1 = fractal->g;
-    fractal->b_1 = fractal->b;
+    colors->r_1 = colors->r;
+    colors->g_1 = colors->g;
+    colors->b_1 = colors->b;
 	// Geração de cores com base na lógica de Inigo Quilez
-	fractal->r = 0.5 + 0.5 * cos(3.0 + l * 0.15);
-	fractal->g = 0.5 + 0.5 * cos(3.0 + l * 0.15 + 0.6);
-	fractal->b = 0.5 + 0.5 * cos(3.0 + l * 0.15 + 1.0);
+	colors->r = 0.5 + 0.5 * cos(3.0 + l * 0.15);
+	colors->g = 0.5 + 0.5 * cos(3.0 + l * 0.15 + 0.6);
+	colors->b = 0.5 + 0.5 * cos(3.0 + l * 0.15 + 1.0);
 
 	// Converter para o formato RGB
-	fractal->red = (int)(fractal->r * 255.0);
-	fractal->green = (int)(fractal->g * 255.0);
-	fractal->blue = (int)(fractal->b * 255.0);
+	colors->red = (int)(colors->r * 255.0);
+	colors->green = (int)(colors->g * 255.0);
+	colors->blue = (int)(colors->b * 255.0);
 
 	// Retornar a cor no formato hexadecimal (0xRRGGBB)
-	return ((fractal->red << 16) | (fractal->green << 8) | fractal->blue);
+	return ((colors->red << 16) | (colors->green << 8) | colors->blue);
 }
 
 int interpolate_color(double t, t_fractal *fractal, int use_quilez)
@@ -60,13 +60,13 @@ int interpolate_color(double t, t_fractal *fractal, int use_quilez)
 	if (use_quilez)
 	{
 		// Usa a paleta de Quilez para calcular a cor
-		fractal->color = quilez_color(t * 512.0, fractal);
+		fractal->fcolor = quilez_color(t * 512.0, &fractal->colors);
 	}
 	else
 	{
-		int start_r = fractal->r_1 * 255; // cor inicial de r, g, b
-		int start_g = fractal->g_1 * 255;
-		int start_b = fractal->b_1 * 255;
+		int start_r = fractal->colors.r_1 * 255; // cor inicial de r, g, b
+		int start_g = fractal->colors.g_1 * 255;
+		int start_b = fractal->colors.b_1 * 255;
 
 		// Valores de RGB de destino (podes mudar as cores de destino conforme desejado)
 		int end_r = 255; // cor final de r (branco ou outra cor de destino)
@@ -74,19 +74,19 @@ int interpolate_color(double t, t_fractal *fractal, int use_quilez)
 		int end_b = 255; // cor final de b
 
 		// Interpolação linear das cores com base no valor de t
-		fractal->red = (int)((1 - t) * start_r + t * end_r);
-		fractal->green = (int)((1 - t) * start_g + t * end_g);
-		fractal->blue = (int)((1 - t) * start_b + t * end_b);
+		fractal->colors.red = (int)((1 - t) * start_r + t * end_r);
+		fractal->colors.green = (int)((1 - t) * start_g + t * end_g);
+		fractal->colors.blue = (int)((1 - t) * start_b + t * end_b);
 
 		// Assegura que as cores estão no intervalo válido (0 a 255)
-		fractal->red = clamp(fractal->red, 0, 255);
-		fractal->green = clamp(fractal->green, 0, 255);
-		fractal->blue = clamp(fractal->blue, 0, 255);
+		fractal->colors.red = clamp(fractal->colors.red, 0, 255);
+		fractal->colors.green = clamp(fractal->colors.green, 0, 255);
+		fractal->colors.blue = clamp(fractal->colors.blue, 0, 255);
 
 		// Combina os valores RGB num único valor de cor
-		fractal->color = (fractal->red << 8) | (fractal->green << 16) | fractal->blue;
+		fractal->fcolor = (fractal->colors.red << 8) | (fractal->colors.green << 16) | fractal->colors.blue;
 	}
-	return (fractal->color);
+	return (fractal->fcolor);
 }
 
 
