@@ -23,16 +23,11 @@ void	dat_init(t_fractal *fractal)
 
 void	events_init(t_fractal *fractal)
 {
-	mlx_hook(fractal->mlx_window, KeyPress,
-							 KeyPressMask,
-							 key_handler,
-							 fractal);
-
+	mlx_hook(fractal->mlx_window, KeyPress, \
+			KeyPressMask, key_handler, fractal);
 	mlx_mouse_hook(fractal->mlx_window, &mouse_events, fractal);
-	mlx_hook(fractal->mlx_window, DestroyNotify,
-							 StructureNotifyMask,
-							 ft_destroy,
-							 fractal);
+	mlx_hook(fractal->mlx_window, DestroyNotify, StructureNotifyMask, \
+			ft_destroy, fractal);
 }
 
 void	fractal_init(t_fractal *fractal)
@@ -40,20 +35,16 @@ void	fractal_init(t_fractal *fractal)
 	fractal->mlx_connetion = mlx_init();
 	if (fractal->mlx_connetion == NULL)
 		malloc_error();
-	fractal->mlx_window = mlx_new_window(fractal->mlx_connetion,
-										WIDTH,
-										HEIGHT,
-										fractal->name);
+	fractal->mlx_window = mlx_new_window(fractal->mlx_connetion, WIDTH, HEIGHT, \
+						fractal->name);
 	if (NULL == fractal->mlx_window)
 		destroyer(fractal);
-	fractal->img.img = mlx_new_image(fractal->mlx_connetion, WIDTH,
-									HEIGHT);
+	fractal->img.img = mlx_new_image(fractal->mlx_connetion, WIDTH, HEIGHT);
 	if (NULL == fractal->img.img)
 		destroyer(fractal);
-	fractal->img.pixels_ptr = mlx_get_data_addr(fractal->img.img,
-										&fractal->img.bits_per_pixel,
-										&fractal->img.line_length,
-										&fractal->img.endian);
+	fractal->img.pixels_ptr = mlx_get_data_addr(fractal->img.img, \
+					&fractal->img.bits_per_pixel, &fractal->img.line_length, \
+					&fractal->img.endian);
 	events_init(fractal);
 	dat_init(fractal);
 }

@@ -15,8 +15,8 @@
 void	ft_error(void)
 {
 	printf("./fractol <fractal set>\n");
-	printf("Mandelbrot -> ./fractol Mandelbrot\n");
-	printf("Julia -> ./fractol Julia <float 1> <float 2>\n");
+	printf("Mandelbrot -> ./fractol mandelbrot\n");
+	printf("Julia -> ./fractol julia <float 1> <float 2>\n");
 	printf("Phoenix -> ./fractol Phoenix <float 1> <float 2> <float 3>\n");
 }
 

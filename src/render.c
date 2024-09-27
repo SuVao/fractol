@@ -2,7 +2,8 @@
 
 double	smoothstep(double edge0, double edge1, double x, t_fractal *fractal)
 {
-	x = clamp((fractal->sm2 * (x - edge0)) / (fractal->sm1 * (edge1 - edge0)), 0.0, 1.0);
+	x = clamp((fractal->sm2 * (x - edge0)) / (fractal->sm1 * \
+			(edge1 - edge0)), 0.0, 1.0);
 	return (x * x * (3 - 2 * x));
 }
 
