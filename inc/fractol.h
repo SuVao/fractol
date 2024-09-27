@@ -148,6 +148,7 @@ int			key_handler(int keysym, t_fractal *fractal);
 void		dat_init(t_fractal *fractal);
 int			mouse_events(int key, int x, int y, t_fractal *fractal);
 double		atod(char *str);
+int			void_calc(t_fractal *fractal, int x, int y, t_complex c);
 
 //-----------------IMAGE-----------------//
 void		fractal_render(t_fractal *fractal);

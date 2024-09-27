@@ -14,20 +14,6 @@ void	my_pixel_put(t_data *img, int x, int y, int color)
 	*(unsigned int *)(img->pixels_ptr + offset) = color;
 }
 
-int	void_calc(t_fractal *fractal, int x, int y, t_complex c)
-{
-	double	c2;
-
-	c2 = (c.real * c.real) + (c.i * c.i);
-	if (256.0 * c2 * c2 - 96.0 * c2 + 32.0 * c.real - 3.0 < 0.0 \
-		|| 16.0 * (c2 + 2.0 * c.real + 1.0) - 1.0 < 0.0)
-	{
-		my_pixel_put(&fractal->img, x, y, BLACK);
-		return (1);
-	}
-	return (0);
-}
-
 void	mandel_julia(t_complex *z, t_complex *c, t_fractal *fractal)
 {
 	if (!ft_strncmp(fractal->name, "julia", 5))

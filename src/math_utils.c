@@ -17,13 +17,13 @@ double	cool_map(double unscaled_num, double new_min, double new_max,
 {
 	return (((new_max - new_min) * (unscaled_num) / (old_max) + new_min));
 }
+
 double cool_map2(int value, double min, double max, int dimension)
 {
 	if (dimension <= 0)
 		return (0);
 	return min + (max - min) * ((double)value / (double)dimension);
 }
-
 
 t_complex	sum_complex(t_complex z1, t_complex z2)
 {

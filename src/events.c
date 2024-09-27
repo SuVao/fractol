@@ -12,58 +12,7 @@
 
 #include "../inc/fractol.h"
 
-double	map_x(int x, double min, double max, t_fractal *fractal)
-{
-	min = min * fractal->zoom + fractal->shift_x;
-	max = max * fractal->zoom + fractal->shift_x;
-	return (min + ((double)x / WIDTH) * (max - min));
-}
-
-double	map_y(int y, double min, double max, t_fractal *fractal)
-{
-	min = min * fractal->zoom + fractal->shift_y;
-	max = max * fractal->zoom + fractal->shift_y;
-	return (min + ((double)y / HEIGHT) * (max - min));
-}
-
-void zoom_in(int key, t_fractal *fractal, int x, int y)
-{
-	double mouse_x;
-	double mouse_y;
-
-	mouse_x = map_x(x, -2.0, 2.0, fractal);
-	mouse_y = map_y(y, 2.0, -2.0, fractal);
-	if (key == SCROLL_UP)
-		fractal->zoom *= 0.80;  // Zoom in
-	fractal->shift_x += (mouse_x - map_x(x, -2.0, 2.0, fractal));
-	fractal->shift_y += (mouse_y - map_y(y, 2.0, -2.0, fractal));
-	fractal_render(fractal);
-}
-
-void	zoom_out(t_fractal *fractal, int x, int y, int key)
-{
-	double mouse_x;
-	double mouse_y;
-
-	mouse_x = map_x(x, -2.0, 2.0, fractal);
-	mouse_y = map_y(y, 2.0, -2.0, fractal);
-	if (key == SCROLL_DOWN)
-		fractal->zoom *= 1.20;  // Zoom out
-	fractal->shift_x += (mouse_x - map_x(x, -2.0, 2.0, fractal));
-	fractal->shift_y += (mouse_y - map_y(y, 2.0, -2.0, fractal));
-	fractal_render(fractal);
-}
-
-int	mouse_events(int key, int x, int y, t_fractal *fractal)
-{
-	if (key == SCROLL_UP)
-		zoom_in(key, fractal, x, y);
-	else if (key == SCROLL_DOWN)
-		zoom_out(fractal, x, y, key);
-	return (0);
-}
-
-int arrows_events(int keysym, t_fractal *fractal)
+int	arrows_events(int keysym, t_fractal *fractal)
 {
 	if (keysym == XK_Down || keysym == S_K)
 		fractal->shift_y -= (0.5 * fractal->zoom);
@@ -87,7 +36,7 @@ int	reset_fractal(t_fractal *fractal)
 	return (0);
 }
 
-int if_quillez(t_fractal *fractal)
+int	if_quillez(t_fractal *fractal)
 {
 	if (fractal->use_quilez == 0)
 		fractal->use_quilez = 1;
@@ -105,7 +54,7 @@ int	reaction(int keysym, t_fractal *fractal)
 	return (0);
 }
 
-int r_g_b(int key, t_fractal *fractal)
+int	r_g_b(int key, t_fractal *fractal)
 {
 	int	sign_r;
 	int	sign_g;
@@ -147,7 +96,7 @@ int r_g_b(int key, t_fractal *fractal)
 	return (0);
 }
 
-int smoth_st(int keysym, t_fractal *fractal)
+int	smoth_st(int keysym, t_fractal *fractal)
 {
 	if (fractal->use_quilez == 1)
 	{
@@ -191,5 +140,5 @@ int	key_handler(int keysym, t_fractal *fractal)
 	else if (keysym == U_K)
 		if_quillez(fractal);
 	fractal_render(fractal);
-	return 0;
+	return (0);
 }

@@ -45,13 +45,13 @@ void	destroyer(t_fractal *fractal)
 
 void	msg_error(char	*s, t_fractal *fractal)
 {
-    int o;
+	int	o;
 
 	if (!s)
 		return ;
 	else
 	{
-		 o = write(2, s, sizeof(s));
+		o = write(2, s, sizeof(s));
 		(void)o;
 		ft_destroy(fractal);
 	}
