@@ -61,6 +61,8 @@ typedef struct s_fractal
 	int		iters;
 	double	shift_x;
 	double	shift_y;
+	int		color_smoth;
+	t_complex p;
 	t_color	colors;
 	double	zoom;
 	int		use_quilez;

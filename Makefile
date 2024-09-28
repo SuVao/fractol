@@ -16,7 +16,7 @@ SRC_DIR = ./src
 OBJ_DIR = ./obj
 MINILIBX_DIR = ./minilibx-linux
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -O3 -g -I/minilibx-linux -Imlx_linux
+CFLAGS = -Wall -Werror -Wextra -Ofast -g -I/minilibx-linux -Imlx_linux
 
 SRC_FILES = main.c \
 			init.c \

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pesilva- <pesilva-@student.42lisboa.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/28 16:29:44 by pesilva-          #+#    #+#             */
+/*   Updated: 2024/09/28 16:29:46 by pesilva-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/fractol.h"
 
 void	dat_init(t_fractal *fractal)
@@ -19,6 +31,7 @@ void	dat_init(t_fractal *fractal)
 	fractal->fcolor = 0x000000;
 	fractal->sm1 = 1;
 	fractal->sm2 = 1;
+	fractal->color_smoth = 0;
 }
 
 void	events_init(t_fractal *fractal)
