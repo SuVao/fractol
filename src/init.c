@@ -30,6 +30,9 @@ void	dat_init(t_fractal *fractal)
 	fractal->colors.blue = 1;
 	fractal->fcolor = 0x000000;
 	fractal->sm1 = 1;
+	fractal->colors.k_r = 0.0;
+	fractal->colors.k_g = 0.6;
+	fractal->colors.k_b = 1.0;
 	fractal->sm2 = 1;
 	fractal->color_smoth = 0;
 }

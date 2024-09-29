@@ -49,6 +49,9 @@ typedef struct s_color
 	float		r_1;
 	float		g_1;
 	float		b_1;
+	float		k_r;
+	float		k_g;
+	float		k_b;
 }				t_color;
 
 typedef struct s_fractal
@@ -108,6 +111,9 @@ typedef struct s_fractal
 # define R 114
 # define G 103
 # define B 98
+# define E 101
+# define F 102
+# define V 118
 # define SCROLL_UP 4
 # define SCROLL_DOWN 5
 

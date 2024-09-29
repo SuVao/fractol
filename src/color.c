@@ -27,9 +27,9 @@ int	quilez_color(double l, t_color *colors)
 	colors->r_1 = colors->r;
 	colors->g_1 = colors->g;
 	colors->b_1 = colors->b;
-	colors->r = 0.5 + 0.5 * cos(3.0 + l * 0.15);
-	colors->g = 0.5 + 0.5 * cos(3.0 + l * 0.15 + 0.6);
-	colors->b = 0.5 + 0.5 * cos(3.0 + l * 0.15 + 1.0);
+	colors->r = 0.5 + 0.5 * cos(3.0 + l * 0.15 + colors->k_r);
+	colors->g = 0.5 + 0.5 * cos(3.0 + l * 0.15 + colors->k_g);
+	colors->b = 0.5 + 0.5 * cos(3.0 + l * 0.15 + colors->k_b);
 	colors->red = (int)(colors->r * 255.0);
 	colors->green = (int)(colors->g * 255.0);
 	colors->blue = (int)(colors->b * 255.0);
@@ -38,28 +38,9 @@ int	quilez_color(double l, t_color *colors)
 
 int	interpolate_color(double t, t_fractal *fractal, int use_quilez)
 {
-	int		start_r;
-	int		start_g;
-	int		start_b;
-
 	if (use_quilez)
 	{
 		fractal->fcolor = quilez_color(t * 512.0, &fractal->colors);
-	}
-	else
-	{
-		start_r = fractal->colors.r_1 * 255;
-		start_g = fractal->colors.g_1 * 255;
-		start_b = fractal->colors.b_1 * 255;
-		fractal->colors.red = (int)((1 - t) * start_r + t * 255);
-		fractal->colors.green = (int)((1 - t) * start_g + t * 123);
-		fractal->colors.blue = (int)((1 - t) * start_b + t * 255);
-		fractal->colors.red = clamp(fractal->colors.red, 0, 255);
-		fractal->colors.green = clamp(fractal->colors.green, 0, 255);
-		fractal->colors.blue = clamp(fractal->colors.blue, 0, 255);
-		fractal->fcolor = (fractal->colors.red << 8) \
-						| (fractal->colors.green << 16) \
-						| fractal->colors.blue;
 	}
 	return (fractal->fcolor);
 }

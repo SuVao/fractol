@@ -1,0 +1,16 @@
+int quilez_color2(double l, t_color *colors)
+// {
+// 	colors->r = 1.2;
+// 	colors->g = 0.5;
+// 	colors->b = 0.2;
+// 	colors->r_1 = colors->r;
+// 	colors->g_1 = colors->g;
+// 	colors->b_1 = colors->b;
+// 	colors->r = 0.5 + 0.5 * cos(3.0 + l * 0.15 + colors->k_r);
+// 	colors->g = 0.5 + 0.5 * cos(3.0 + l * 0.15 + colors->k_g);
+// 	colors->b = 0.5 + 0.5 * cos(3.0 + l * 0.15 + colors->k_b);
+// 	colors->red = (int)(colors->r * 255.0);
+// 	colors->green = (int)(colors->g * 255.0);
+// 	colors->blue = (int)(colors->b * 255.0);
+// 	return ((colors->red << 16) | (colors->green << 8) | colors->blue);
+// }

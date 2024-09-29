@@ -23,7 +23,7 @@ t_complex	multiply_complex(t_complex a, t_complex b)
 
 double	smoothstep(double edge0, double edge1, double x, t_fractal *fractal)
 {
-	x = clamp((fractal->sm2 * (x - edge0)) / (fractal->sm1 * \
+	x = clamp(((x - edge0)) / (fractal->sm1 * \
 			(edge1 - edge0)), 0.0, 1.0);
 	return (x * x * (3 - 2 * x));
 }
@@ -66,14 +66,61 @@ int	iters(t_fractal *fractal, t_complex z, int i, int x, int y)
 	return (1);
 }
 
-t_complex	mandel_vs_phoenix(t_fractal *fractal, t_complex z, t_complex z_prev, t_complex c)
+void	mandelbrot_render(int x, int y, t_fractal *fractal)
 {
-	if (!ft_strncmp(fractal->name, "phoenix", 7))
-		return (sum_complex(square_complex(z), multiply_complex(fractal->p, z_prev)));
-	return sum_complex(square_complex(z), c);
+	t_complex	z;
+	t_complex	c;
+	int			i;
+
+	i = 0;
+	z.real = cool_map(x, -2, +2, WIDTH) * fractal->zoom + fractal->shift_x;
+	z.i = cool_map(y, +2, -2, HEIGHT) * fractal->zoom + fractal->shift_y;
+	c.real = z.real;
+	c.i = z.i;
+	if (void_calc(fractal, x, y, c))
+		return ;
+	while (i < fractal->iters)
+	{
+		z = sum_complex(square_complex(z), c);
+		if ((z.real * z.real) + (z.i * z.i) > fractal->escaped)
+		{
+			fractal->color_smoth = smoothed_coloring(fractal, i, z);
+			my_pixel_put(&fractal->img, x, y, fractal->color_smoth);
+			return ;
+		}
+		i++;
+	}
+	my_pixel_put(&fractal->img, x, y, BLACK);
 }
 
-void	handle_pixel(int x, int y, t_fractal *fractal)
+void	julia_render(int x, int y, t_fractal *fractal)
+{
+	t_complex	z;
+	t_complex	c;
+	int			i;
+
+	i = 0;
+	z.real = cool_map(x, -2, +2, WIDTH) * fractal->zoom + fractal->shift_x;
+	z.i = cool_map(y, +2, -2, HEIGHT) * fractal->zoom + fractal->shift_y;
+	c.real = fractal->input1;
+	c.i = fractal->input2;
+	if (void_calc(fractal, x, y, c))
+		return ;
+	while (i < fractal->iters)
+	{
+		z = sum_complex(square_complex(z), c);
+		if ((z.real * z.real) + (z.i * z.i) > fractal->escaped)
+		{
+			fractal->color_smoth = smoothed_coloring(fractal, i, z);
+			my_pixel_put(&fractal->img, x, y, fractal->color_smoth);
+			return ;
+		}
+		i++;
+	}
+	my_pixel_put(&fractal->img, x, y, BLACK);
+}
+
+void	phoenix_render(int x, int y, t_fractal *fractal)
 {
 	t_complex	z;
 	t_complex	c;
@@ -92,15 +139,7 @@ void	handle_pixel(int x, int y, t_fractal *fractal)
 	while (i < fractal->iters)
 	{
 		z_temp = z;
-		if (!ft_strncmp(fractal->name, "phoenix", 7))
-			z = mandel_vs_phoenix(fractal, z, z_prev, c);
-		else
-			z = sum_complex(square_complex(z), c);
-		// if (!ft_strncmp(fractal->name, "julia", 5) || \
-			// !ft_strncmp(fractal->name, "mandelbrot", 10))
-			// z = sum_complex(square_complex(z), c);
-		// else if (!ft_strncmp(fractal->name, "phoenix", 7))
-			// z = sum_complex(sum_complex(square_complex(z), c), multiply_complex(fractal->p, z_prev));
+		z = sum_complex(square_complex(z), multiply_complex(fractal->p, z_prev));
 		z_prev = z_temp;
 		if (!iters(fractal, z, i, x, y))
 			return ;
@@ -120,7 +159,12 @@ void	fractal_render(t_fractal *fractal)
 		x = 0;
 		while (x < WIDTH)
 		{
-			handle_pixel(x, y, fractal);
+			if (!ft_strncmp(fractal->name, "julia", 5))
+				julia_render(x, y, fractal);
+			else if (!ft_strncmp(fractal->name, "mandelbrot", 10))
+				mandelbrot_render(x, y, fractal);
+			else if (!ft_strncmp(fractal->name, "phoenix", 10))
+				phoenix_render(x, y, fractal);
 			x++;
 		}
 		y++;
