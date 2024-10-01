@@ -14,10 +14,11 @@
 
 static void init_fract(int ac, char **av, t_fractal *fractal)
 {
-	if (ac == 4)
+	if (ac == 5)
 	{
 		fractal->input1 = atod(av[2]);
 		fractal->input2 = atod(av[3]);
+		fractal->input3 = atod(av[4]);
 	}
 	fractal->name = av[1];
 	fractal_init(fractal);
@@ -33,7 +34,7 @@ int	main(int ac, char **av)
 		init_fract(ac, av, &fractal);
 	else if (4 == ac && !ft_strncmp(av[1], "julia", 5))
 		init_fract(ac, av, &fractal);
-	else if (4 == ac && !ft_strncmp(av[1], "phoenix", 7))
+	else if (5 == ac && !ft_strncmp(av[1], "phoenix", 7))
 		init_fract(ac, av, &fractal);
 	else
 	{

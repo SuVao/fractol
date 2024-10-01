@@ -36,6 +36,52 @@ void	my_pixel_put(t_data *img, int x, int y, int color)
 	*(unsigned int *)(img->pixels_ptr + offset) = color;
 }
 
+int	iters(t_fractal *fractal, t_complex z, int i, int x, int y)
+{
+	if ((z.real * z.real) + (z.i * z.i) > fractal->escaped)
+	{
+		fractal->color_smoth = smoothed_coloring(fractal, i, z);
+		my_pixel_put(&fractal->img, x, y, fractal->color_smoth);
+		return (0);
+	}
+	return (1);
+}
+
+t_complex    phoenix_calc(t_complex z, t_complex z_prev, t_fractal *fractal)
+{
+    t_complex res;
+    (void)z_prev;
+    res.real = (z.real * z.real) - (z.i * z.i) + fractal->input1 + (fractal->input3 * z.real);
+	res.i = (2 * z.real * z.i) + (-1 * fractal->input2) + (fractal->input3 * z.i);
+	return (res);
+}
+
+void	phoenix_render(int x, int y, t_fractal *fractal)
+{
+	t_complex	z;
+	t_complex	z_prev;
+	t_complex 	z_temp;
+	int			i;
+
+	i = 0;
+	z.real = cool_map(x, -2, +2, WIDTH) * fractal->zoom + fractal->shift_x;
+	z.i = cool_map(y, +2, -2, HEIGHT) * fractal->zoom + fractal->shift_y;
+	z_prev.i = 0;
+	z_prev.real = 0;
+
+	while (i < fractal->iters)
+	{
+	    z_temp = z;
+		z = phoenix_calc(z_temp, z_prev, fractal);
+		z_prev = z_temp;
+		if (!iters(fractal, z, i, x, y))
+			return ;
+		i++;
+	}
+	my_pixel_put(&fractal->img, x, y, BLACK);
+}
+
+
 void	mandel_julia(t_complex *z, t_complex *c, t_fractal *fractal)
 {
 	if (!ft_strncmp(fractal->name, "julia", 5))
@@ -55,16 +101,6 @@ void	mandel_julia(t_complex *z, t_complex *c, t_fractal *fractal)
 	}
 }
 
-int	iters(t_fractal *fractal, t_complex z, int i, int x, int y)
-{
-	if ((z.real * z.real) + (z.i * z.i) > fractal->escaped)
-	{
-		fractal->color_smoth = smoothed_coloring(fractal, i, z);
-		my_pixel_put(&fractal->img, x, y, fractal->color_smoth);
-		return (0);
-	}
-	return (1);
-}
 
 void	mandelbrot_render(int x, int y, t_fractal *fractal)
 {
@@ -120,33 +156,6 @@ void	julia_render(int x, int y, t_fractal *fractal)
 	my_pixel_put(&fractal->img, x, y, BLACK);
 }
 
-void	phoenix_render(int x, int y, t_fractal *fractal)
-{
-	t_complex	z;
-	t_complex	c;
-	t_complex	z_prev;
-	t_complex 	z_temp;
-	int			i;
-
-	i = 0;
-	z.real = cool_map(x, -2, +2, WIDTH) * fractal->zoom + fractal->shift_x;
-	z.i = cool_map(y, +2, -2, HEIGHT) * fractal->zoom + fractal->shift_y;
-	z_prev.real = 0;
-	z_prev.i = 0;
-	mandel_julia(&z, &c, fractal);
-	if (void_calc(fractal, x, y, c))
-		return ;
-	while (i < fractal->iters)
-	{
-		z_temp = z;
-		z = sum_complex(square_complex(z), multiply_complex(fractal->p, z_prev));
-		z_prev = z_temp;
-		if (!iters(fractal, z, i, x, y))
-			return ;
-		i++;
-	}
-	my_pixel_put(&fractal->img, x, y, BLACK);
-}
 
 void	fractal_render(t_fractal *fractal)
 {

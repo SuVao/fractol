@@ -74,6 +74,7 @@ typedef struct s_fractal
 	float	sm2;
 	double	input1;
 	double	input2;
+	double	input3;
 }				t_fractal;
 
 # define HEIGHT 800
