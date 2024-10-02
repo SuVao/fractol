@@ -20,3 +20,18 @@ int	ft_destroy(t_fractal *fractal)
 	free(fractal->mlx_connetion);
 	exit (EXIT_SUCCESS);
 }
+
+double	smoothstep(double edge0, double edge1, double x, t_fractal *fractal)
+{
+	x = clamp(((x - edge0)) / (fractal->sm1 * \
+			(edge1 - edge0)), 0.0, 1.0);
+	return (x * x * (3 - 2 * x));
+}
+
+void	my_pixel_put(t_data *img, int x, int y, int color)
+{
+	int	offset;
+
+	offset = (y * img->line_length) + (x * (img->bits_per_pixel / 8));
+	*(unsigned int *)(img->pixels_ptr + offset) = color;
+}

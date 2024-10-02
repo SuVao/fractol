@@ -50,7 +50,7 @@ clean:
 	$(MAKE) clean -C $(MINILIBX_DIR)
 
 fclean: clean
-	$(MAKE) fclean -C $(MINILIBX_DIR)
+	#$(MAKE) fclean -C $(MINILIBX_DIR)
 	rm -f $(NAME)
 
 re: fclean all

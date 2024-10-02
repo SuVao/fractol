@@ -13,22 +13,22 @@
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include "../minilibx-linux/mlx.h"
-#include <fcntl.h>
-#include <X11/X.h>
-#include <X11/keysym.h>
-#include <math.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include "../minilibx-linux/mlx.h"
+# include <fcntl.h>
+# include <X11/X.h>
+# include <X11/keysym.h>
+# include <math.h>
 
-typedef struct	s_complex
+typedef struct s_complex
 {
 	double	real;
 	double	i;
 }				t_complex;
 
-typedef struct	s_data
+typedef struct s_data
 {
 	void	*img;
 	char	*addr;
@@ -43,15 +43,15 @@ typedef struct s_color
 	int		red;
 	int		green;
 	int		blue;
-	float		r;
-	float		g;
-	float		b;
-	float		r_1;
-	float		g_1;
-	float		b_1;
-	float		k_r;
-	float		k_g;
-	float		k_b;
+	float	r;
+	float	g;
+	float	b;
+	float	r_1;
+	float	g_1;
+	float	b_1;
+	float	k_r;
+	float	k_g;
+	float	k_b;
 }				t_color;
 
 typedef struct s_fractal
@@ -65,7 +65,6 @@ typedef struct s_fractal
 	double	shift_x;
 	double	shift_y;
 	int		color_smoth;
-	t_complex p;
 	t_color	colors;
 	double	zoom;
 	int		use_quilez;
@@ -75,6 +74,7 @@ typedef struct s_fractal
 	double	input1;
 	double	input2;
 	double	input3;
+	int		i;
 }				t_fractal;
 
 # define HEIGHT 800
@@ -118,7 +118,6 @@ typedef struct s_fractal
 # define SCROLL_UP 4
 # define SCROLL_DOWN 5
 
-
 /*--------------CORES----------------*/
 # define BLACK 0x000000
 # define WHITE 0xFFFFFF
@@ -145,7 +144,8 @@ int			ft_destroy(t_fractal *fractal);
 //-----------------COLORS-----------------//
 int			interpolate_color(double t, t_fractal *fractal, int use_quilez);
 double		clamp(double x, double min_val, double max_val);
-double		smoothstep(double edge0, double edge1, double x, t_fractal *fractal);
+double		smoothstep(double edge0, double edge1, double x, \
+			t_fractal *fractal);
 int			smoothed_coloring(t_fractal *fractal, int i, t_complex z);
 double		smooth_iteration(int i, t_complex z);
 
@@ -170,6 +170,11 @@ void		handle_pixel(int x, int y, t_fractal *fractal);
 void		zoom_out(t_fractal *fractal, int x, int y, int key);
 void		my_pixel_put(t_data *img, int x, int y, int color);
 void		mandel_julia(t_complex *z, t_complex *c, t_fractal *fractal);
-
+int			reset_fractal(t_fractal *fractal);
+int			smoth_st(int keysym, t_fractal *fractal);
+double		smoothstep(double edge0, double edge1, double x, \
+			t_fractal *fractal);
+void		my_pixel_put(t_data *img, int x, int y, int color);
+t_complex	phoenix_calc(t_complex z, t_complex z_prev, t_fractal *fractal);
 
 #endif

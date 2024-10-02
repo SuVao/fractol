@@ -25,3 +25,14 @@ int	void_calc(t_fractal *fractal, int x, int y, t_complex c)
 	}
 	return (0);
 }
+
+t_complex	phoenix_calc(t_complex z, t_complex z_prev, t_fractal *fractal)
+{
+	t_complex	res;
+
+	res.real = (z.real * z.real) - (z.i * z.i) + fractal->input1 \
+				+ (fractal->input3 * z_prev.real);
+	res.i = 2 * z.real * z.i + (-1 * fractal->input2) \
+			+ (fractal->input3 * z_prev.i);
+	return (res);
+}
