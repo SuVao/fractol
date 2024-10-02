@@ -16,20 +16,25 @@ static void	phoenix_or_julia(int ac, char **av, t_fractal *fractal)
 {
 	if (ac == 5)
 	{
-		fractal->input1 = atod(av[2]);
-		fractal->input2 = atod(av[3]);
-		fractal->input3 = atod(av[4]);
+		fractal->input1 = atod(av[2], fractal);
+		fractal->input2 = atod(av[3], fractal);
+		fractal->input3 = atod(av[4], fractal);
 	}
 	else if (ac == 4)
 	{
-		fractal->input1 = atod(av[2]);
-		fractal->input2 = atod(av[3]);
+		fractal->input1 = atod(av[2], fractal);
+		fractal->input2 = atod(av[3], fractal);
 	}
 }
 
 static void	init_fract(int ac, char **av, t_fractal *fractal)
 {
 	phoenix_or_julia(ac, av, fractal);
+	if (fractal->error == 1)
+	{
+      //  free(fractal);
+        exit(EXIT_FAILURE);
+    }
 	fractal->name = av[1];
 	fractal_init(fractal);
 	fractal_render(fractal);

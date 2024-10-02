@@ -35,3 +35,8 @@ void	my_pixel_put(t_data *img, int x, int y, int color)
 	offset = (y * img->line_length) + (x * (img->bits_per_pixel / 8));
 	*(unsigned int *)(img->pixels_ptr + offset) = color;
 }
+
+int is_digit(char c)
+{
+    return (c >= '0' && c <= '9');
+}
