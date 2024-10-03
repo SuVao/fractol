@@ -75,7 +75,7 @@ typedef struct s_fractal
 	double	input2;
 	double	input3;
 	int		i;
-	int    error;
+	int		error;
 }				t_fractal;
 
 # define HEIGHT 800
@@ -138,7 +138,6 @@ typedef struct s_fractal
 //-----------------HANDLING ERRORS-----------------//
 void		ft_error(void);
 void		malloc_error(void);
-void		msg_error(char	*s, t_fractal *fractal);
 void		destroyer(t_fractal *fractal);
 int			ft_destroy(t_fractal *fractal);
 
@@ -159,6 +158,8 @@ void		dat_init(t_fractal *fractal);
 int			mouse_events(int key, int x, int y, t_fractal *fractal);
 double		atod(char *str, t_fractal *fractal);
 int			void_calc(t_fractal *fractal, int x, int y, t_complex c);
+int			is_digit(char c);
+int			positive(char c, int *sign);
 
 //-----------------IMAGE-----------------//
 void		fractal_render(t_fractal *fractal);
@@ -177,6 +178,5 @@ double		smoothstep(double edge0, double edge1, double x, \
 			t_fractal *fractal);
 void		my_pixel_put(t_data *img, int x, int y, int color);
 t_complex	phoenix_calc(t_complex z, t_complex z_prev, t_fractal *fractal);
-int         is_digit(char c);
 
 #endif

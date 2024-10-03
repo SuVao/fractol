@@ -36,3 +36,16 @@ t_complex	phoenix_calc(t_complex z, t_complex z_prev, t_fractal *fractal)
 			+ (fractal->input3 * z_prev.i);
 	return (res);
 }
+
+int	positive(char c, int *sign)
+{
+	if (c == '-' || c == '+')
+	{
+		if ('-' == c)
+		{
+			*sign = -1;
+			return (1);
+		}
+	}
+	return (0);
+}

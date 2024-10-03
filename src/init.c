@@ -17,7 +17,7 @@ void	dat_init(t_fractal *fractal)
 	if (!fractal)
 		return ;
 	fractal->escaped = 4;
-	fractal->iters = 100;
+	fractal->iters = 200;
 	fractal->shift_x = 0.0;
 	fractal->shift_y = 0.0;
 	fractal->zoom = 1.0;

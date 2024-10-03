@@ -42,23 +42,21 @@ t_complex	square_complex(t_complex z)
 	res.i = 2 * z.real * z.i;
 	return (res);
 }
-//corrigir aqui// fazer uma funcao que verifica se e um digito  ou nao
+
 double	atod(char *s, t_fractal *fractal)
 {
 	long	int_res;
 	double	dec_res;
 	double	i;
 	int		sign;
-	(void)fractal;
+
 	i = 1;
 	int_res = 0;
 	dec_res = 0;
 	sign = 1;
 	while ((*s >= 9 && *s <= 13) || *s == 13)
 		s++;
-	if (*s == '-' || *s == '+')
-		if ('-' == *s++)
-			sign = -1;
+	s += positive(*s, &sign);
 	while (*s != '.' && *s >= '0' && *s <= '9')
 		int_res = int_res * 10 + *s++ - '0';
 	if (*s == '.' || *s == ',')
@@ -68,7 +66,7 @@ double	atod(char *s, t_fractal *fractal)
 		i /= 10;
 		dec_res += (*s++ - '0') * i;
 	}
-//	if (!is_digit(*s))
-//	    fractal->error = 1;
+	if (!is_digit(*s) && *s != '\0' && *s != '\n')
+		fractal->error = 1;
 	return (sign * (int_res + dec_res));
 }

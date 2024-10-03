@@ -42,17 +42,3 @@ void	destroyer(t_fractal *fractal)
 	}
 	malloc_error();
 }
-
-void	msg_error(char	*s, t_fractal *fractal)
-{
-	int	o;
-
-	if (!s)
-		return ;
-	else
-	{
-		o = write(2, s, sizeof(s));
-		(void)o;
-		ft_destroy(fractal);
-	}
-}

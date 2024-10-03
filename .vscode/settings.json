@@ -1,8 +1,0 @@
-{
-	"files.associations": {
-		"fcntl.h": "c",
-		"mlx.h": "c",
-		"unistd.h": "c",
-		"fractol.h": "c"
-	}
-}

@@ -31,7 +31,7 @@ int	reset_fractal(t_fractal *fractal)
 	fractal->zoom = 1.0;
 	fractal->shift_x = 0.0;
 	fractal->shift_y = 0.0;
-	fractal->iters = 42;
+	fractal->iters = 500;
 	fractal->sm1 = 1.0;
 	fractal->colors.k_r = 0.0;
 	fractal->colors.k_g = 0.6;
