@@ -70,7 +70,6 @@ typedef struct s_fractal
 	int		use_quilez;
 	int		fcolor;
 	float	sm1;
-	float	sm2;
 	double	input1;
 	double	input2;
 	double	input3;
@@ -178,5 +177,6 @@ double		smoothstep(double edge0, double edge1, double x, \
 			t_fractal *fractal);
 void		my_pixel_put(t_data *img, int x, int y, int color);
 t_complex	phoenix_calc(t_complex z, t_complex z_prev, t_fractal *fractal);
+void		init_val_colors(t_fractal *fractal);
 
 #endif

@@ -12,7 +12,7 @@
 
 #include "../inc/fractol.h"
 
-int	check_args(char **av, t_fractal *fractal)
+int	check_args(char **av)
 {
 	int	i;
 
@@ -25,7 +25,6 @@ int	check_args(char **av, t_fractal *fractal)
 			if ((!is_digit((*av)[i])) && (*av)[i] != '-' \
 				&& (*av)[i] != '+' && (*av)[i] != '.')
 			{
-				fractal->error = 1;
 				return (1);
 			}
 			i++;
@@ -52,14 +51,12 @@ static void	phoenix_or_julia(int ac, char **av, t_fractal *fractal)
 
 static void	init_fract(int ac, char **av, t_fractal *fractal)
 {
-	if (check_args(av, fractal) == 1)
-		fractal->error = 1;
-	phoenix_or_julia(ac, av, fractal);
-	if (fractal->error == 1)
+	if (check_args(av) == 1)
 	{
-		write(2, "Error in the arguments!\n", 25);
+		ft_error();
 		exit(EXIT_FAILURE);
 	}
+	phoenix_or_julia(ac, av, fractal);
 	fractal->name = av[1];
 	fractal_init(fractal);
 	fractal_render(fractal);
